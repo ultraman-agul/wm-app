@@ -14,3 +14,4 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 1. 配置别名：在vite.config.ts中配置，需要先安装`npm i @types/node -D` 才能使用path模块
 2. 集成路由：安装支持vue3的路由 vue-router@4 `npm i vue-router@4`，配置router/index.ts
 3. 新一代状态管理工具，Pinia.js ： `npm install pinia --save`
+4. 配置网络请求axios： `npm i axios`， 配置api/index
