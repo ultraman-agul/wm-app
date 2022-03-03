@@ -2,11 +2,14 @@ import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router'
 
 const routes: Array<RouteRecordRaw> = [
     {
-        path: '/home',
-        name: 'Home',
-        component: () => import(/* webpackChunkName: "Home" */ '@/views/home.vue')
+        path: '/',
+        redirect: '/index'
     },
-    { path: '/', redirect: { name: 'Home' } }
+    {
+        path: '/index',
+        name: '首页',
+        component: () => import('@/views/index/index.vue')
+    },
 ]
 
 const router = createRouter({
