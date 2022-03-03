@@ -1,9 +1,6 @@
 <template>
-    <top-head title="美团外卖"></top-head>
-    <tab-bar></tab-bar>
+    <v-head title="美团外卖"></v-head>
+    <v-bar></v-bar>
 </template>
 
-<script lang="ts" setup>
-import TabBar from "@/components/TabBar.vue";
-import TopHead from "@/components/TopHead.vue";
-</script>
+<script lang="ts" setup></script>

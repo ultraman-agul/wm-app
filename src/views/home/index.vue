@@ -1,5 +1,5 @@
 <template>
-    <h2>pjh</h2>
+    <v-head title="home"></v-head>
     <h3>{{username.name}}</h3>
     <div class="box">
         <button @click="handleClick">按钮</button>
