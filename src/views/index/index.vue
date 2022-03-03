@@ -1,11 +1,11 @@
 <template>
-    <div class="index" ref="scrollWrapper">
+    <div ref="scrollWrapper" class="index">
         <div class="main-container">
-            <!-- 头部 -->
+            <!-- 头部定位和搜索 -->
             <div class="guide-container">
                 <router-link to="/location?fromIndex=true" class="location">
                     <var-icon name="map-marker" />
-                    <span class="address">{{"广州南"}}</span>
+                    <span class="address">广州南</span>
                     <var-icon name="chevron-right" />
                 </router-link>
                 <router-link to="/search" class="search">
@@ -41,38 +41,44 @@
 <script lang="ts" setup></script>
 
 <style lang="scss">
-.index{
-    .main-container{
+.index {
+    .main-container {
         font-size: 16px;
-        .guide-container{
+
+        .guide-container {
             padding: 20px 10px;
             background-color: $mtYellow;
-            .location{
+
+            .location {
                 display: flex;
                 align-items: center;
-                .address{
+
+                .address {
                     font-weight: bolder;
                 }
             }
-            .search{
+
+            .search {
                 display: flex;
                 align-items: center;
                 justify-content: space-between;
-                background-color: #ffffff;
+                background-color: #fff;
                 height: 40px;
                 margin: 10px 0;
                 border-radius: 20px;
                 padding: 20px;
-                color: #999999;
-                .left-content{
+                color: #999;
+
+                .left-content {
                     display: flex;
                     align-items: center;
-                    span{
+
+                    span {
                         margin-left: 5px;
                     }
                 }
 
-                .search-btn{
+                .search-btn {
                     height: 30px;
                     width: 60px;
                     top: -1px;
