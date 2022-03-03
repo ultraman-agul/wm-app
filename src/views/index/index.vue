@@ -1,6 +1,5 @@
 <template>
     <tab-bar></tab-bar>
-    sad
 </template>
 
 <script lang="ts" setup>
