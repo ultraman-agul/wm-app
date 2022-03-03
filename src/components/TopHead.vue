@@ -1,11 +1,13 @@
 <template>
     <div class="head">
-        <span
-            class="iconfont icon-arrow-left-bold go-back"
+        <var-icon
+            name="chevron-left"
             @click="goBack()"
-        ></span>
+            class="go-back"
+            :size="26"
+        />
         <span class="title">{{title}}</span>
-        <span class="more iconfont icon-elipsis" v-if="more"></span>
+        <var-icon name="dots-vertical" v-if="true" class="more" :size="26" />
     </div>
 </template>
 
@@ -25,15 +27,17 @@ const goBack = () => {
 <style lang="scss">
 .head{
     position: relative;
-    background-color: yellow;
+    background-color: $mtYellow;
     text-align: center;
     line-height: 1rem;
     padding: 0 0.2rem;
     .go-back,
     .more {
         position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
         i {
-        font-size: 0.7rem;
+            font-size: 0.7rem;
         }
     }
     .go-back {

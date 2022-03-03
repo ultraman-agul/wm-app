@@ -20,7 +20,7 @@ console.log()
 
 <style lang="scss">
 .box {
-    background-color: #555;
+    background-color: $mtYellow;
     button{
         width: 1rem;
         margin-left: 2.5rem
