@@ -19,26 +19,34 @@
                     </var-button>
                 </router-link>
             </div>
-            <!--导航轮播部分-->
-            <v-nav></v-nav>
-            <!--附近商家-->
-            <div class="head">
-                <span class="line"></span>
-                <h2>附近商家</h2>
-                <span class="line"></span>
-            </div>
-            <var-button>默认按钮</var-button>
-            <!-- <nearby-shops
+            <div class="main">
+                <div class="navigator">
+                    <!--导航轮播部分-->
+                    <v-nav></v-nav>
+                </div>
+
+                <!--附近商家-->
+                <div class="head">
+                    <span class="line"></span>
+                    <h2>附近商家</h2>
+                    <span class="line"></span>
+                </div>
+                <var-button>默认按钮</var-button>
+                <!-- <nearby-shops
                 :scrollWrapper="scrollWrapper"
                 v-if="locationReady"
             ></nearby-shops> -->
+            </div>
         </div>
+
         <!-- 底部 -->
         <v-bar></v-bar>
     </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import vNav from './nav.vue'
+</script>
 
 <style lang="scss">
 .index {
@@ -87,6 +95,13 @@
                     color: #000;
                 }
             }
+        }
+
+        .main {
+            margin-top: -20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px 10px;
         }
     }
 }
