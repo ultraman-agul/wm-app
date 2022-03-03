@@ -1,7 +1,9 @@
 <template>
     <h2>pjh</h2>
     <h3>{{username.name}}</h3>
-    <button @click="handleClick">按钮</button>
+    <div class="box">
+        <button @click="handleClick">按钮</button>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -13,3 +15,12 @@
         console.log(content)
     }
 </script>
+
+<style lang="scss">
+    .box {
+        background-color: #555;
+        button{
+            width: 300px;
+        }
+    }
+</style>

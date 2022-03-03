@@ -11,7 +11,7 @@ const axios = axioss.create({
     maxContentLength: 2000,
     transformResponse: [(data) => {
         try {
-            JSON.parse(data)
+            JSON.parse(data)  // 转换成json格式
         } catch (e) {
             data = {}
         }
