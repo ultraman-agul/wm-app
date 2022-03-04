@@ -1,40 +1,40 @@
 <template>
     <div id="bottom">
         <ul>
-            <router-link to="/index" custom v-slot="{ navigate }">
-                <li class="index" @click="navigate" role="link">
+            <router-link v-slot="{ navigate }" to="/index" custom>
+                <li class="index" role="link" @click="navigate">
                     <div class="item-box">
                         <img
-                            src="../assets/index-active.png"
                             v-if="active ==='index'"
+                            src="../assets/index-active.png"
                         />
-                        <img src="../assets/index.png" v-else />
+                        <img v-else src="../assets/index.png" />
                         <span>首页</span>
                     </div>
                 </li>
             </router-link>
 
-            <router-link to="/order" custom v-slot="{ navigate }">
-                <li class="order" @click="navigate" role="link">
+            <router-link v-slot="{ navigate }" to="/order" custom>
+                <li class="order" role="link" @click="navigate">
                     <div class="item-box">
                         <img
-                            src="../assets/order-active.png"
                             v-if="active ==='order'"
+                            src="../assets/order-active.png"
                         />
-                        <img src="../assets/order.png" v-else />
+                        <img v-else src="../assets/order.png" />
                         <span>订单</span>
                     </div>
                 </li>
             </router-link>
 
-            <router-link to="/home" custom v-slot="{ navigate }">
-                <li @click="navigate" role="link">
+            <router-link v-slot="{ navigate }" to="/home" custom>
+                <li role="link" @click="navigate">
                     <div class="item-box">
                         <img
-                            src="../assets/home-active.png"
                             v-if="active ==='home'"
+                            src="../assets/home-active.png"
                         />
-                        <img src="../assets/home.png" v-else />
+                        <img v-else src="../assets/home.png" />
                         <span>我的</span>
                     </div>
                 </li>
@@ -46,10 +46,11 @@
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
 import { computed } from 'vue'
+
 let active = computed(() => useRoute().path.slice(1))
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #bottom {
     width: 100%;
     position: fixed;
@@ -57,28 +58,32 @@ let active = computed(() => useRoute().path.slice(1))
     left: 0;
     z-index: 999; //保证底部在商家列表上层 当点击综合排序时  不会被遮罩挡住
     span {
-        font-size: 0.3rem;
+        font-size: 24px;
     }
+
     ul {
         display: flex;
         background: rgb(250, 250, 250);
         justify-content: space-around;
+
         li {
             display: flex;
             flex-direction: column;
             align-items: center;
             flex: 1;
-            line-height: 0.75;
             text-align: center;
+
             .item-box {
-                width: .75rem;
-                margin: 0.1rem auto;
+                width: 36px;
+                margin: 8px auto;
+
                 img {
                     width: 100%;
                 }
             }
+
             span {
-                font-size: 0.2rem;
+                font-size: 14px;
             }
         }
     }

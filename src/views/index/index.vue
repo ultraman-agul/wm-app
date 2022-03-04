@@ -28,14 +28,14 @@
                 <!--附近商家-->
                 <div class="head">
                     <span class="line"></span>
-                    <h2>附近商家</h2>
+                    <h3>附近商家</h3>
                     <span class="line"></span>
                 </div>
-                <var-button>默认按钮</var-button>
                 <!-- <nearby-shops
                 :scrollWrapper="scrollWrapper"
                 v-if="locationReady"
             ></nearby-shops> -->
+                <nearby-shops></nearby-shops>
             </div>
         </div>
 
@@ -46,6 +46,7 @@
 
 <script lang="ts" setup>
 import vNav from './nav.vue'
+import nearbyShops from './nearby_shops.vue'
 </script>
 
 <style lang="scss">
@@ -102,6 +103,29 @@ import vNav from './nav.vue'
             padding: 20px;
             background-color: #fff;
             border-radius: 10px 10px;
+
+            .head {
+                width: 120px;
+                margin: 10px auto;
+                position: relative;
+                text-align: center;
+
+                h3 {
+                    font-weight: bold;
+                }
+
+                .line {
+                    position: absolute;
+                    top: 8px;
+                    left: 0;
+                    border-bottom: 2px solid #333;
+                    width: 18px;
+
+                    &:last-child {
+                        left: 100px;
+                    }
+                }
+            }
         }
     }
 }
