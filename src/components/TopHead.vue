@@ -24,14 +24,14 @@ const goBack = () => {
     router.back()
 }
 </script>
-
 <style lang="scss" scoped>
 .head {
     position: relative;
     background-color: $mtYellow;
     text-align: center;
-    line-height: 1rem;
-    padding: 0 .2rem;
+    height: 40px;
+    line-height: 40px;
+    padding: 0 16px;
 
     .go-back,
     .more {
@@ -50,7 +50,7 @@ const goBack = () => {
 
     .title {
         flex: 1;
-        font-size: .5rem;
+        font-size: 18px;
         font-weight: bold;
         text-align: center;
     }

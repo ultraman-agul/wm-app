@@ -15,6 +15,15 @@ const routes: Array<RouteRecordRaw> = [
         name: '个人中心',
         component: () => import('@/views/home/index.vue'),
     },
+    {
+        path: '/404',
+        name: '404',
+        component: () => import('@/views/404/index.vue'),
+    },
+    {
+        path: '/:pathMatch(.*)',
+        redirect: '/404',
+    },
 ]
 
 const router = createRouter({
