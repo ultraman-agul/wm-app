@@ -7,7 +7,7 @@
             @click="goBack()"
         />
         <span class="title">{{ title }}</span>
-        <var-icon v-if="true" name="dots-vertical" class="more" :size="26" />
+        <var-icon v-if="more" name="dots-vertical" class="more" :size="26" />
     </div>
 </template>
 

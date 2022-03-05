@@ -16,6 +16,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/home/index.vue'),
     },
     {
+        path: '/login',
+        name: '登录',
+        component: () => import('@/views/login/index.vue'),
+    },
+    {
         path: '/404',
         name: '404',
         component: () => import('@/views/404/index.vue'),

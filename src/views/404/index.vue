@@ -2,9 +2,7 @@
     <div class="error">
         <v-head title="出错" go-back="true"></v-head>
         <div class="info-container">
-            <img
-                src="https://s3plus.meituan.net/v1/mss_e2821d7f0cfe4ac1bf9202ecf9590e67/cdn-prod/file:9096d347/bba2050e1cd7ddb1d9fcca776a31637b.png"
-            />
+            <img src="@/assets/404.png" />
             <span class="tip">找不到此页面</span>
             <router-link class="redirect-index" to="/index">
                 <span>回到首页</span>

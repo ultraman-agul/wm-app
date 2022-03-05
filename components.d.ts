@@ -8,7 +8,12 @@ declare module 'vue' {
     TabBar: typeof import('./src/components/TabBar.vue')['default']
     TopHead: typeof import('./src/components/TopHead.vue')['default']
     VarButton: typeof import('@varlet/ui')['_ButtonComponent']
+    VarCheckbox: typeof import('@varlet/ui')['_CheckboxComponent']
+    VarForm: typeof import('@varlet/ui')['_FormComponent']
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
+    VarInput: typeof import('@varlet/ui')['_InputComponent']
+    VarRadio: typeof import('@varlet/ui')['_RadioComponent']
+    VarRadioGroup: typeof import('@varlet/ui')['_RadioGroupComponent']
     VarStyleProvider: typeof import('@varlet/ui')['_StyleProviderComponent']
   }
 }
