@@ -4,11 +4,7 @@ module.exports = {
         defineEmits: 'readonly',
         defineProps: 'readonly',
     },
-    extends: [
-        'plugin:@typescript-eslint/recommended',
-        'plugin:vue/vue3-recommended',
-        'airbnb-base',
-    ],
+    extends: ['plugin:@typescript-eslint/recommended', 'plugin:vue/vue3-recommended', 'airbnb-base'],
     parser: 'vue-eslint-parser',
     plugins: ['@typescript-eslint'],
     parserOptions: {
@@ -33,7 +29,7 @@ module.exports = {
         quotes: ['error', 'single'],
         'comma-dangle': ['error', 'always-multiline'],
         'object-curly-spacing': ['error', 'always'],
-        // 'max-len': ['error', 120],
+        'max-len': ['error', 300],
         'no-new': 'off',
         'linebreak-style': 'off',
         'import/extensions': 'off',

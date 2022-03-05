@@ -8,38 +8,24 @@
                 <p>美团外卖</p>
             </div>
             <var-form ref="form">
-                <var-input
-                    v-model="formData.username"
-                    placeholder="请输入用户名"
-                    :rules="[v => !!v || '用户名不能为空']"
-                />
-                <var-input
-                    v-model="formData.password"
-                    type="password"
-                    placeholder="请输入密码"
-                    :rules="[v => !!v || '密码不能为空']"
-                />
+                <var-input v-model="formData.username" placeholder="请输入用户名" :rules="[(v:any) => !!v || '用户名不能为空']" />
+                <var-input v-model="formData.password" type="password" placeholder="请输入密码" :rules="[(v:any) => !!v || '密码不能为空']" />
+                <div class="button" @click.prevent="login();">
+                    <var-button block type="primary">登录</var-button>
+                </div>
+                <p class="tip">
+                    <var-checkbox v-model="formData.agree" :rules="[(v:any) => !!v || '必须同意隐私协议']" :checked-value="1"> 未注册直接输入账号密码，自动注册！ </var-checkbox>
+                </p>
             </var-form>
-
-            <div class="button" @click.prevent="login();">
-                <var-button block type="primary">登录</var-button>
-            </div>
-            <p class="tip">
-                <var-checkbox
-                    v-model="formData.agree"
-                    :rules="[v => !!v || '必须同意隐私协议']"
-                    :checked-value="1"
-                >
-                    未注册直接输入账号密码，自动注册！
-                </var-checkbox>
-            </p>
         </div>
     </div>
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, ref } from 'vue'
+import { userLogin } from '@/api/user'
 
+const form:any = ref(null)
 const data = reactive({
     formData: {
         username: '', // 用户名
@@ -51,13 +37,16 @@ const data = reactive({
     },
 })
 const { formData } = toRefs(data)
-const login = () => {
-    console.log(formData.value.username)
-    console.log(formData.value.agree)
+const login = async () => {
+    if (await form.value.validate()) {
+        const result = await userLogin({
+            username: formData.value.username,
+            password: formData.value.password })
+        console.log(result)
+    }
 }
 </script>
 
-//
 <style lang="scss" scoped>
 #login {
     .main {
