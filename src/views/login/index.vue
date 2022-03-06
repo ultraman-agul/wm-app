@@ -25,7 +25,9 @@
 import { reactive, toRefs, ref } from 'vue'
 import { userLogin } from '@/api/user'
 import { Snackbar } from '@varlet/ui'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const form:any = ref(null)
 const data = reactive({
     formData: {
@@ -38,14 +40,16 @@ const data = reactive({
     },
 })
 const { formData } = toRefs(data)
+
 const login = async () => {
     if (await form.value.validate()) {
         const result: any = await userLogin({
             username: formData.value.username,
             password: formData.value.password })
-        console.log(result)
         if (result.status === 200) {
             localStorage.setItem('token', result.token)
+            Snackbar.success('登陆成功')
+            router.push('/index')
         } else {
             console.log(result.message)
             Snackbar.error(result.message)
@@ -57,7 +61,7 @@ const login = async () => {
 <style lang="scss" scoped>
 #login {
     .main {
-        padding: 20px 10px;
+        padding: 20px 30px;
 
         .logo-box {
             text-align: center;

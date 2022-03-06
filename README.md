@@ -18,3 +18,5 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 4. 配置网络请求 axios： `npm i axios`， 配置 api/index
 5. 继承 css 预编译器： `npm i sass -D`,
 6. 改用 postcss-px-to-viewport 适配： `postcss-px-to-viewport`，配置 postcss.config.js 文件
+7. 引入 eslint prettierrc 进行代码格式化检查
+8. 完善登录功能,携带 token 认证

@@ -1,10 +1,11 @@
 <template>
-    <v-head title="home"></v-head>
+    <v-head title="个人中心"></v-head>
     <h3>{{ username.name }}</h3>
     <div class="box">
         <button @click="handleClick">按钮</button>
         <div></div>
     </div>
+    <v-bar></v-bar>
 </template>
 
 <script lang="ts" setup>

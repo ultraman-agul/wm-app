@@ -1,6 +1,6 @@
 import axioss from 'axios'
 import config from '@/config'
-import router from '@/router'
+import router from '@/router/index'
 
 const { baseURL } = config
 const axios = axioss.create({
@@ -18,14 +18,16 @@ axios.interceptors.request.use((config) => {
     return config
 })
 axios.interceptors.response.use(
-    (req) => {
-        if (req.status === 403) {
+    (res) => {
+        if (res.data.status === 403) {
+            // token身份验证不通过,跳转登录页,删除token
             router.push('/login')
+            localStorage.removeItem('token')
         }
-        return req.data
+        return res.data
     },
     (err) => {
-        console.log(err)
+        console.error(err)
     }
 )
 
