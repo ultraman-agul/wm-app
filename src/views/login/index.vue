@@ -24,6 +24,7 @@
 <script lang="ts" setup>
 import { reactive, toRefs, ref } from 'vue'
 import { userLogin } from '@/api/user'
+import { Snackbar } from '@varlet/ui'
 
 const form:any = ref(null)
 const data = reactive({
@@ -39,10 +40,16 @@ const data = reactive({
 const { formData } = toRefs(data)
 const login = async () => {
     if (await form.value.validate()) {
-        const result = await userLogin({
+        const result: any = await userLogin({
             username: formData.value.username,
             password: formData.value.password })
         console.log(result)
+        if (result.status === 200) {
+            localStorage.setItem('token', result.token)
+        } else {
+            console.log(result.message)
+            Snackbar.error(result.message)
+        }
     }
 }
 </script>

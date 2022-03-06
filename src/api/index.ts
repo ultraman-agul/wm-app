@@ -9,34 +9,32 @@ const axios = axioss.create({
     withCredentials: true, // 允许跨域 cookie
     headers: { 'X-Requested-With': 'XMLHttpRequest' },
     maxContentLength: 2000,
-    transformResponse: [
-        (data) => {
-            try {
-                JSON.parse(data) // 转换成json格式
-            } catch (e) {
-                data = {}
-            }
-            if (data.status === 403) {
-                // 没有权限，重定向到登录页
-                router.push('/login')
-            }
-            return data
-        },
-    ],
 })
+axios.interceptors.request.use((config) => {
+    config.headers = {
+        // 请求头带上token，用于后端验证
+        Authorization: 'Bearer ' + localStorage.getItem('token'),
+    }
+    return config
+})
+axios.interceptors.response.use(
+    (req) => {
+        if (req.status === 403) {
+            router.push('/login')
+        }
+        return req.data
+    },
+    (err) => {
+        console.log(err)
+    }
+)
 
 interface req {
     url: string
-    data: object
+    data?: object
 }
 
 export const _get = (req: req) => axios.get(req.url, { params: req.data })
 
 // axios.post(req.url, data: {req.data}) 不能这么写，会导致多一层data嵌套
-export const _post = (req: req) => {
-    axios({
-        method: 'post',
-        url: `/${req.url}`,
-        data: req.data,
-    })
-}
+export const _post = (req: req) => axios({ method: 'post', url: `/${req.url}`, data: req.data })

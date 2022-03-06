@@ -9,14 +9,13 @@
 
 <script lang="ts" setup>
 import { useUserStore } from '@/store/user'
-import { _get } from '@/api/index'
+import { getAllAddress } from '@/api/user'
 
 const username = useUserStore()
-const handleClick = () => {
-    const content = _get({ url: 'test', data: {} })
+const handleClick = async () => {
+    const content = await getAllAddress()
     console.log(content)
 }
-console.log()
 </script>
 
 <style lang="scss">
@@ -24,14 +23,9 @@ console.log()
     background-color: $mtYellow;
 
     button {
-        width: 1rem;
-        margin-left: 2.5rem;
-    }
-
-    div {
-        width: 1rem;
-        background-color: red;
-        height: 2rem;
+        display: block;
+        width: 50px;
+        margin: 0 auto;
     }
 }
 </style>

@@ -27,7 +27,7 @@ module.exports = {
             },
         ],
         quotes: ['error', 'single'],
-        'comma-dangle': ['error', 'always-multiline'],
+        'comma-dangle': 'off',
         'object-curly-spacing': ['error', 'always'],
         'max-len': ['error', 300],
         'no-new': 'off',
