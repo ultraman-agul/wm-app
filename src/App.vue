@@ -1,5 +1,5 @@
 <template>
-    <var-style-provider :style-vars="successTheme">
+    <var-style-provider :style-vars="successTheme" style="height: 100%;">
         <KeepAlive>
             <router-view v-if="route.meta.keepAlive"></router-view>
         </KeepAlive>
@@ -22,7 +22,7 @@ const successTheme = {
 </script>
 
 <style>
-#a pp {
+#app {
     width: 100%;
     height: 100%;
 }

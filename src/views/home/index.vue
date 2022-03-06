@@ -1,32 +1,159 @@
 <template>
     <v-head title="个人中心"></v-head>
-    <h3>{{ username.name }}</h3>
-    <div class="box">
-        <button @click="handleClick">按钮</button>
-        <div></div>
+    <div class="home">
+        <div class="top-container">
+            <div class="user-info">
+                <img :src="avatarUrl" alt="" />
+                <span>{{ state.username }}</span>
+            </div>
+        </div>
+        <div class="func-box">
+            <ul>
+                <li v-for="(item, index) in funcList" :key="index" @click="jumpSubView(item)">
+                    <div>
+                        <var-icon :name="item.icon" />
+                        {{ item.name }}
+                    </div>
+                    <var-icon name="chevron-right" />
+                </li>
+            </ul>
+        </div>
+        <div class="bottom">
+            <div class="tel">客服电话: 10109777</div>
+            <p>服务时间: 9:00 - 23:00</p>
+        </div>
     </div>
+
     <v-bar></v-bar>
 </template>
 
 <script lang="ts" setup>
+import { onMounted, reactive } from 'vue'
+import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
 import { getAllAddress } from '@/api/user'
+import { getInfo } from '@/utils/auth'
 
-const username = useUserStore()
+// 功能项的类型
+type funcItem = {
+    url: string,
+    name: string,
+    icon: string,
+}
+const router = useRouter()
+const funcList: funcItem[] = [
+    {
+        name: '收货地址',
+        url: '/home/address',
+        icon: 'map-marker-outline'
+    },
+    {
+        name: '我的收藏',
+        url: '/home/collect',
+        icon: 'star-outline'
+    },
+    {
+        name: '常见问题',
+        url: '/home/problem',
+        icon: 'help-circle-outline',
+    },
+    {
+        name: '我的评价',
+        url: '/home/comment',
+        icon: 'message-processing-outline',
+    },
+    {
+        name: '我的足迹',
+        url: '/home/histroy',
+        icon: 'file-document-outline',
+    },
+    {
+        name: '退出登录',
+        url: '/login',
+        icon: 'power',
+    }
+]
+let avatarUrl = 'http://i.waimai.meituan.com/static/img/default-avatar.png'
+const state = reactive({ username: '' })
+onMounted(async () => {
+    const name = await getInfo()
+    console.log(name)
+    if (name) {
+        state.username = name
+    } else {
+        state.username = '未登录'
+        console.log(state.username)
+    }
+})
+const jumpSubView = (item: funcItem) => {
+    router.push(item.url)
+}
 const handleClick = async () => {
     const content = await getAllAddress()
     console.log(content)
 }
 </script>
 
-<style lang="scss">
-.box {
-    background-color: $mtYellow;
+<style lang="scss" scoped>
+.home {
+    background-color: #f0f0f0;
+    height: 100%;
 
-    button {
-        display: block;
-        width: 50px;
-        margin: 0 auto;
+    .top-container {
+        background: url(@/assets/homeBG.png);
+        height: 150px;
+
+        .user-info {
+            width: 120px;
+            height: 100%;
+            text-align: center;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            img {
+                height: 70px;
+                width: 70px;
+                margin-bottom: 10px;
+                border-radius: 35px;
+                background-color: #fff;
+                border: 5px solid #ffe699;
+            }
+        }
+    }
+
+    .func-box {
+        background-color: #fff;
+
+        ul {
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 10px 20px 10px 10px;
+                border-bottom: 2px solid #f0f0f0;
+            }
+        }
+    }
+
+    .bottom {
+        text-align: center;
+        height: 100%;
+
+        .tel {
+            color: $mtYellow;
+            height: 30px;
+            line-height: 30px;
+            background-color: #fff;
+        }
+
+        p {
+            font-size: 14px;
+            color: #aaa;
+            margin-top: 10px;
+        }
     }
 }
 </style>

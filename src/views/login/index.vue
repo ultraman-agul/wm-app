@@ -22,7 +22,7 @@
 </template>
 
 <script lang="ts" setup>
-import { reactive, toRefs, ref } from 'vue'
+import { reactive, toRefs, ref, onMounted } from 'vue'
 import { userLogin } from '@/api/user'
 import { Snackbar } from '@varlet/ui'
 import { useRouter } from 'vue-router'
@@ -35,11 +35,14 @@ const data = reactive({
         password: '', // 密码
         passwordVisible: false, // 显示密码
         agree: 0, // 是否同意协议
-        alertText: '',
-        showTip: false,
     },
 })
 const { formData } = toRefs(data)
+
+onMounted(() => {
+    localStorage.removeItem('token')
+    localStorage.removeItem('userInfo')
+})
 
 const login = async () => {
     if (await form.value.validate()) {
