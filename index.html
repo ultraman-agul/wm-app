@@ -10,6 +10,12 @@
     <body style="font-size: 1rem !important;">
         <div id="app"></div>
         <script type="module" src="/src/main.ts"></script>
-        <!-- <script src="./src/plugins/flexible.js"></script> -->
+        <script type="application/javascript">
+            function getIP(json) {
+              sessionStorage.setItem('ip', json.ip)
+              console.log('当前你的ip地址是：',sessionStorage.getItem('ip'))
+            }
+        </script>
+        <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     </body>
 </html>

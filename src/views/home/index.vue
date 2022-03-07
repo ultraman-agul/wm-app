@@ -2,14 +2,11 @@
     <v-head title="个人中心"></v-head>
     <div class="home">
         <div class="top-container">
-            <!-- 表单提交必需设置enctype=multipart/form-data -->
-            <form>
-                <label class="user-info" for="file">
-                    <img :src="avatarUrl" alt="" />
-                    <input id="file" type="file" name="file" style="display: none;" @change="uploadPic($event)" />
-                    <span>{{ state.username }}</span>
-                </label>
-            </form>
+            <label class="user-info" for="file">
+                <img :src="avatarUrl" alt="" />
+                <input id="file" type="file" name="file" style="display: none;" @change="uploadPic($event)" />
+                <span>{{ state.username }}</span>
+            </label>
         </div>
         <div class="func-box">
             <ul>

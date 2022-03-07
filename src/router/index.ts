@@ -21,6 +21,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/login/index.vue'),
     },
     {
+        path: '/location',
+        name: '定位',
+        component: () => import('@/views/location/index.vue'),
+    },
+    {
         path: '/404',
         name: '404',
         component: () => import('@/views/404/index.vue'),

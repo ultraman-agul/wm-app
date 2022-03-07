@@ -21,8 +21,8 @@ module.exports = {
             'error',
             4,
             {
-                MemberExpression: 0,
-                SwitchCase: 1,
+                MemberExpression: 'off',
+                SwitchCase: 0,
                 ignoredNodes: ['TemplateLiteral'],
             },
         ],
@@ -80,7 +80,7 @@ module.exports = {
         '@typescript-eslint/ban-types': 'off',
         'class-methods-use-this': 'off',
         'no-return-await': 'off',
-        'vue/html-indent': ['error', 4],
+        'vue/html-indent': 'off',
         'vue/html-self-closing': 'off',
         'vue/max-attributes-per-line': [
             'warn',

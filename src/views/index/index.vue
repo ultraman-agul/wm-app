@@ -5,7 +5,7 @@
             <div class="guide-container">
                 <router-link to="/location?fromIndex=true" class="location">
                     <var-icon name="map-marker" />
-                    <span class="address">广州南</span>
+                    <span class="address">{{ address }}</span>
                     <var-icon name="chevron-right" />
                 </router-link>
                 <router-link to="/search" class="search">
@@ -14,9 +14,7 @@
                         <span>请输入商家或商品名称</span>
                     </div>
 
-                    <var-button type="primary" class="search-btn">
-                        搜索
-                    </var-button>
+                    <var-button type="primary" class="search-btn"> 搜索 </var-button>
                 </router-link>
             </div>
             <div class="main">
@@ -47,6 +45,11 @@
 <script lang="ts" setup>
 import vNav from './nav.vue'
 import nearbyShops from './nearby_shops.vue'
+import { computed } from 'vue'
+import { useAddressStore } from '@/store/address'
+
+const addressStore = useAddressStore()
+const address = computed(() => addressStore.address)
 </script>
 
 <style lang="scss">
