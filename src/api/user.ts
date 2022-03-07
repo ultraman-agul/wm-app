@@ -27,3 +27,11 @@ export const getAllAddress = () => {
     }
     return _get(req)
 }
+
+export const changeAvatar = (data: object) => {
+    const req = {
+        url: 'admin/change_avatar',
+        data,
+    }
+    return _post(req)
+}

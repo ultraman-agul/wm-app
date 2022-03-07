@@ -24,6 +24,7 @@
 <script lang="ts" setup>
 import { reactive, toRefs, ref, onMounted } from 'vue'
 import { userLogin } from '@/api/user'
+import { setInfo } from '@/utils/auth'
 import { Snackbar } from '@varlet/ui'
 import { useRouter } from 'vue-router'
 
@@ -51,6 +52,7 @@ const login = async () => {
             password: formData.value.password })
         if (result.status === 200) {
             localStorage.setItem('token', result.token)
+            setInfo(result.username)
             Snackbar.success('登陆成功')
             router.push('/index')
         } else {

@@ -6,7 +6,7 @@
             <form>
                 <label class="user-info" for="file">
                     <img :src="avatarUrl" alt="" />
-                    <input id="file" type="file" name="file" @change="uploadPic($event)" />
+                    <input id="file" type="file" name="file" style="display: none;" @change="uploadPic($event)" />
                     <span>{{ state.username }}</span>
                 </label>
             </form>
@@ -17,6 +17,13 @@
                     <div>
                         <var-icon :name="item.icon" />
                         {{ item.name }}
+                    </div>
+                    <var-icon name="chevron-right" />
+                </li>
+                <li @click="router.push('/login')">
+                    <div>
+                        <var-icon name="power" />
+                        {{ state.username === '未登录' ? "去登录" : "退出登录" }}
                     </div>
                     <var-icon name="chevron-right" />
                 </li>
@@ -34,11 +41,11 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { useUserStore } from '@/store/user'
-import { getAllAddress } from '@/api/user'
+import { getAllAddress, changeAvatar } from '@/api/user'
 import { upload } from '@/api/upload'
 import { getInfo } from '@/utils/auth'
 import { Snackbar } from '@varlet/ui'
+import config from '@/config'
 
 // 功能项的类型
 type funcItem = {
@@ -73,15 +80,9 @@ const funcList: funcItem[] = [
         url: '/home/histroy',
         icon: 'file-document-outline',
     },
-    {
-        name: '退出登录',
-        url: '/login',
-        icon: 'power',
-    }
 ]
-let avatarUrl = 'http://i.waimai.meituan.com/static/img/default-avatar.png'
+let avatarUrl = ref('http://i.waimai.meituan.com/static/img/default-avatar.png')
 const state = reactive({ username: '', file: '' })
-let form:any
 onMounted(async () => {
     const name = await getInfo()
     if (name) {
@@ -89,7 +90,6 @@ onMounted(async () => {
     } else {
         state.username = '未登录'
     }
-    form = document.querySelector('#avatarForm')
 })
 const jumpSubView = (item: funcItem) => {
     router.push(item.url)
@@ -101,25 +101,19 @@ const handleClick = async () => {
 
 const uploadPic = async (event: any) => {
     let file = event.target.files[0]
-    upload({ file })
-    // form.submit()
-    // upload({ file }).then((upResponse) => {
-    //     console.log(upResponse)
-    //     // this.avatar = pic_url
-    //     // changeAvatar({ pic_url }).then(() => {
-    //     // }) // 更新到数据库
-    // })
-    // if (file.size > 1024 * 1024 * 3) {
-    //     // 只能传2M以内照片
-    //     Snackbar.warning('上传失败，只能传2M以内图片')
-    // } else {
-    //     upload({ file }).then((upResponse) => {
-    //         console.log(upResponse)
-    //         // this.avatar = pic_url
-    //         // changeAvatar({ pic_url }).then(() => {
-    //         // }) // 更新到数据库
-    //     })
-    // }
+    if (!file || file.size > 1024 * 1024 * 2) {
+        // 只能传2M以内照片
+        Snackbar.warning('上传失败，只能传2M以内图片')
+        return false
+    }
+    const result: any = await upload({ file })
+    console.log(result)
+    if (result.status === 200) {
+        avatarUrl.value = config.baseURL + result.url
+        console.log(avatarUrl.value)
+        // changeAvatar({ avatarUrl }).then(() => {
+        // }) // 更新到数据库
+    }
 }
 </script>
 
