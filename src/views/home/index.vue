@@ -2,10 +2,14 @@
     <v-head title="个人中心"></v-head>
     <div class="home">
         <div class="top-container">
-            <div class="user-info">
-                <img :src="avatarUrl" alt="" />
-                <span>{{ state.username }}</span>
-            </div>
+            <!-- 表单提交必需设置enctype=multipart/form-data -->
+            <form>
+                <label class="user-info" for="file">
+                    <img :src="avatarUrl" alt="" />
+                    <input id="file" type="file" name="file" @change="uploadPic($event)" />
+                    <span>{{ state.username }}</span>
+                </label>
+            </form>
         </div>
         <div class="func-box">
             <ul>
@@ -28,11 +32,13 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { useUserStore } from '@/store/user'
 import { getAllAddress } from '@/api/user'
+import { upload } from '@/api/upload'
 import { getInfo } from '@/utils/auth'
+import { Snackbar } from '@varlet/ui'
 
 // 功能项的类型
 type funcItem = {
@@ -74,16 +80,16 @@ const funcList: funcItem[] = [
     }
 ]
 let avatarUrl = 'http://i.waimai.meituan.com/static/img/default-avatar.png'
-const state = reactive({ username: '' })
+const state = reactive({ username: '', file: '' })
+let form:any
 onMounted(async () => {
     const name = await getInfo()
-    console.log(name)
     if (name) {
         state.username = name
     } else {
         state.username = '未登录'
-        console.log(state.username)
     }
+    form = document.querySelector('#avatarForm')
 })
 const jumpSubView = (item: funcItem) => {
     router.push(item.url)
@@ -91,6 +97,29 @@ const jumpSubView = (item: funcItem) => {
 const handleClick = async () => {
     const content = await getAllAddress()
     console.log(content)
+}
+
+const uploadPic = async (event: any) => {
+    let file = event.target.files[0]
+    upload({ file })
+    // form.submit()
+    // upload({ file }).then((upResponse) => {
+    //     console.log(upResponse)
+    //     // this.avatar = pic_url
+    //     // changeAvatar({ pic_url }).then(() => {
+    //     // }) // 更新到数据库
+    // })
+    // if (file.size > 1024 * 1024 * 3) {
+    //     // 只能传2M以内照片
+    //     Snackbar.warning('上传失败，只能传2M以内图片')
+    // } else {
+    //     upload({ file }).then((upResponse) => {
+    //         console.log(upResponse)
+    //         // this.avatar = pic_url
+    //         // changeAvatar({ pic_url }).then(() => {
+    //         // }) // 更新到数据库
+    //     })
+    // }
 }
 </script>
 

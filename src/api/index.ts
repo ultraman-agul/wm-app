@@ -40,3 +40,13 @@ export const _get = (req: req) => axios.get(req.url, { params: req.data })
 
 // axios.post(req.url, data: {req.data}) 不能这么写，会导致多一层data嵌套
 export const _post = (req: req) => axios({ method: 'post', url: `/${req.url}`, data: req.data })
+
+export const _postImg = (req: req) =>
+    axios({
+        method: 'post',
+        url: `/${req.url}`,
+        headers: {
+            'Content-Type': 'multipart/form-data',
+        },
+        data: req.data,
+    })
