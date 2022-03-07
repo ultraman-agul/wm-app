@@ -41,7 +41,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { getAllAddress, changeAvatar } from '@/api/user'
+import { userInfo, getAllAddress, changeAvatar } from '@/api/user'
 import { upload } from '@/api/upload'
 import { getInfo } from '@/utils/auth'
 import { Snackbar } from '@varlet/ui'
@@ -85,8 +85,17 @@ let avatarUrl = ref('http://i.waimai.meituan.com/static/img/default-avatar.png')
 const state = reactive({ username: '', file: '' })
 onMounted(async () => {
     const name = await getInfo()
-    if (name) {
+    if (name) { // 如果已经登录，则调用接口获取用户头像
         state.username = name
+        userInfo().then((data:any) => {
+            if (data.status === 200) {
+                avatarUrl.value = data.data.avatar
+            } else {
+                Snackbar.error(data.message)
+            }
+        }).catch(e => {
+            console.log(e)
+        })
     } else {
         state.username = '未登录'
     }
@@ -111,8 +120,9 @@ const uploadPic = async (event: any) => {
     if (result.status === 200) {
         avatarUrl.value = config.baseURL + result.url
         console.log(avatarUrl.value)
-        // changeAvatar({ avatarUrl }).then(() => {
-        // }) // 更新到数据库
+        // 更新到数据库
+        changeAvatar({ avatarUrl: avatarUrl.value }).then(() => {
+        }).catch(e => { console.log(e) })
     }
 }
 </script>

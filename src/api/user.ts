@@ -35,3 +35,10 @@ export const changeAvatar = (data: object) => {
     }
     return _post(req)
 }
+
+export const userInfo = () => {
+    const req = {
+        url: 'admin/user_info',
+    }
+    return _get(req)
+}

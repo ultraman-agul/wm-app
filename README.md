@@ -20,3 +20,4 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 6. 改用 postcss-px-to-viewport 适配： `postcss-px-to-viewport`，配置 postcss.config.js 文件
 7. 引入 eslint prettierrc 进行代码格式化检查
 8. 完善登录功能,携带 token 认证
+9. 头像上传到服务端，服务端保存到可访问静态资源文件夹，返回图片路径，前端接收路径展示
