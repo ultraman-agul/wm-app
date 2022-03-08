@@ -13,7 +13,7 @@ export default defineConfig({
     ],
     resolve: {
         alias: {
-            //别名
+            // 别名
             '@': resolve('./src'),
         },
     },

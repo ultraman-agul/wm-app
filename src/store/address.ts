@@ -28,7 +28,7 @@ export const useAddressStore = defineStore('address', {
         },
 
         // 更改收货地址
-        setAddress(text) {
+        setAddress(text: string) {
             this.address = text
         },
     },

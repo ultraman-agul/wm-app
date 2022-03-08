@@ -14,6 +14,7 @@ declare module 'vue' {
     VarInput: typeof import('@varlet/ui')['_InputComponent']
     VarRadio: typeof import('@varlet/ui')['_RadioComponent']
     VarRadioGroup: typeof import('@varlet/ui')['_RadioGroupComponent']
+    VarRate: typeof import('@varlet/ui')['_RateComponent']
     VarStyleProvider: typeof import('@varlet/ui')['_StyleProviderComponent']
     VarUploader: typeof import('@varlet/ui')['_UploaderComponent']
   }
