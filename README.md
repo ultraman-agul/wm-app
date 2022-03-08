@@ -20,4 +20,6 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 6. 改用 postcss-px-to-viewport 适配： `postcss-px-to-viewport`，配置 postcss.config.js 文件
 7. 引入 eslint prettierrc 进行代码格式化检查
 8. 完善登录功能,携带 token 认证
-9. 头像上传到服务端，服务端保存到可访问静态资源文件夹，返回图片路径，前端接收路径展示
+9. 更换头像:头像上传到服务端，服务端保存到可访问静态资源文件夹，返回图片路径，前端接收路径展示 发送请求将头像路径更新到数据库用户表中
+10. ip 定位: 第三方接口获取到用户当前的 ip,将 ip 传给后端,接收到 ip 调用腾讯地图 api 获取经纬度,再用经纬度获取当前位置
+11. 位置搜索: 传入 keyword 调用腾讯地图 api 获取位置列表,用户选择后存储到 pinia 中

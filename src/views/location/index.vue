@@ -39,7 +39,7 @@ function getNowLocation() {
     store.getNowlocation()
 }
 
-function setAddress(title) {
+function setAddress(title:string) {
     store.setAddress(title)
     router.push('/index')
 }
