@@ -16,6 +16,7 @@
               console.log('当前你的ip地址是：',sessionStorage.getItem('ip'))
             }
         </script>
+        <!-- 页面加载时获取到当前用户的ip地址,使用jsonp解决第三方接口跨域问题,-->
         <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
     </body>
 </html>

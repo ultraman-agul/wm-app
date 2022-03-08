@@ -10,7 +10,7 @@
             <var-button type="primary">搜索</var-button>
         </div>
         <ul>
-            <li v-for="item in state.addressList" :key="item.id">
+            <li v-for="item in state.addressList" :key="item.id" @click="setAddress(item.title)">
                 <p>{{ item.title }}</p>
                 <p>{{ item.address }}</p>
             </li>
@@ -24,7 +24,9 @@ import { useAddressStore } from '@/store/address'
 import { locationSearch } from '@/api/location'
 import { ref, reactive } from 'vue'
 import { Snackbar } from '@varlet/ui'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 let address = ref('')
 let timer: any
 const state = reactive({
@@ -35,6 +37,11 @@ const store = useAddressStore()
 
 function getNowLocation() {
     store.getNowlocation()
+}
+
+function setAddress(title) {
+    store.setAddress(title)
+    router.push('/index')
 }
 
 function search(val:any) {
@@ -68,11 +75,11 @@ function search(val:any) {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 20px 10px 10px;
+        padding: 10px 10px;
         background-color: #fff;
+        margin: 10px 0;
 
         button {
-            margin: 0;
             width: 100px;
             padding: 10px;
             margin-left: 10px;
