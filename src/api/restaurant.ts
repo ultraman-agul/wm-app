@@ -8,3 +8,10 @@ export const getAllResturant = (data: object) => {
 
     return _get(req)
 }
+
+export const getResturantById = (data: any) => {
+    const req = {
+        url: '/v1/restaurant/' + data.id,
+    }
+    return _get(req)
+}

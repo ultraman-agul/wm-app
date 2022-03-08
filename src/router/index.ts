@@ -26,6 +26,32 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/location/index.vue'),
     },
     {
+        path: '/store',
+        name: '商店',
+        component: () => import('@/views/store/index.vue'),
+        children: [
+            {
+                path: '/store/menu',
+                name: '菜单',
+                component: () => import('@/views/store/menu.vue'),
+            },
+            {
+                path: '/store/comment',
+                name: '评论',
+                component: () => import('@/views/store/comment.vue'),
+            },
+            {
+                path: '/store/shop',
+                name: '商家',
+                component: () => import('@/views/store/shop.vue'),
+            },
+            {
+                path: '', // 默认是点菜页面
+                redirect: '/store/menu',
+            },
+        ],
+    },
+    {
         path: '/404',
         name: '404',
         component: () => import('@/views/404/index.vue'),

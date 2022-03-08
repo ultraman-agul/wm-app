@@ -8,7 +8,7 @@
         </ul>
         <div class="container">
             <ul>
-                <li v-for="(item) in state.shopList" :key="item.id" class="shop-item">
+                <li v-for="(item) in state.shopList" :key="item.id" class="shop-item" @click="router.push({path: '/store', query: {id:item.id}})">
                     <div class="img-show">
                         <img :src="item.pic_url" />
                     </div>
@@ -54,7 +54,9 @@ import { getAllResturant } from '@/api/restaurant'
 import { Snackbar } from '@varlet/ui'
 import { reactive, computed, watch } from 'vue'
 import { useAddressStore } from '@/store/address'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const addressStore = useAddressStore()
 let lat = computed(() => addressStore.lat)
 let lng = computed(() => addressStore.lng)
