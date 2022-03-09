@@ -12,7 +12,7 @@
             </div>
         </div>
         <!--活动列表-->
-        <div class="actives">
+        <div v-show="shopInfo.discounts2.length" class="actives">
             <ul
                 :style="
                 'transform: translateY(' +
@@ -27,16 +27,21 @@
             </ul>
             <span class="active-number" @click="showStoreDetail()">{{ shopInfo.discounts2.length }}个活动 > </span>
         </div>
-        <keep-alive>
-            <router-view></router-view>
-        </keep-alive>
+        <router-view v-slot="{ Component }">
+            <keep-alive>
+                <component :is="Component" />
+            </keep-alive>
+        </router-view>
+        <shop-detail v-show="showFlag" :shop-info="shopInfo" @close="showFlag=!showFlag">关闭</shop-detail>
     </div>
 </template>
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
 import { computed, ref } from 'vue'
 import { useRestaurantStore } from '@/store/restaurant'
+import shopDetail from './shop_detail.vue'
 
+let showFlag = ref(false)
 let shopInfo = computed(() => restaurantStore.shopInfo)
 
 const route = useRoute()
@@ -49,7 +54,9 @@ timer = setInterval(() => {
     positionY.value++
 }, 4000)
 
-function showStoreDetail() {}
+function showStoreDetail() {
+    showFlag.value = true
+}
 </script>
 
 <style lang="scss" scoped>
@@ -111,7 +118,7 @@ function showStoreDetail() {}
                 }
 
                 span {
-                    font-size: .3rem;
+                    font-size: 14px;
                 }
             }
         }
@@ -122,7 +129,7 @@ function showStoreDetail() {}
         }
 
         .active-number {
-            font-size: .3rem;
+            font-size: 14px;
             position: absolute;
             top: 0;
             right: 0;
