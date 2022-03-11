@@ -15,3 +15,11 @@ export const getResturantById = (data: any) => {
     }
     return _get(req)
 }
+
+export const getFoods = (data: object) => {
+    const req = {
+        url: '/v1/getFoods/',
+        data,
+    }
+    return _get(req)
+}

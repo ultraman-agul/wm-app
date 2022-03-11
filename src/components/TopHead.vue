@@ -1,11 +1,6 @@
 <template>
     <div class="head">
-        <var-icon
-            name="chevron-left"
-            class="go-back"
-            :size="26"
-            @click="goBack()"
-        />
+        <var-icon name="chevron-left" class="go-back" :size="26" @click="goBack()" />
         <span class="title">{{ title }}</span>
         <var-icon v-if="more" name="dots-vertical" class="more" :size="26" />
     </div>
@@ -14,14 +9,16 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router'
 
-defineProps<{
+const props = defineProps<{
     title: string,
-    more?: boolean
+    more?: boolean,
+    store?: boolean
 }>()
 
 const router = useRouter() // 先实例化再调用方法，不能连写作 userRouter().back()
 const goBack = () => {
-    router.back()
+    // 如果是在商店内的路由,点击返回时跳转到主页面
+    props.store ? router.push('/index') : router.back()
 }
 </script>
 <style lang="scss" scoped>

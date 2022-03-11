@@ -25,3 +25,5 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 11. 位置搜索: 传入 keyword 调用腾讯地图 api 获取位置列表,用户选择后存储到 pinia 中
 12. 获取商家列表: 请求时带上 lat lng 经纬度,后端根据用户的经纬度与商家的经纬度比较距离以及配送时间
 13. 商家详情: 根据 id 获取商家信息
+14. 商店分类: 根据商家 id 添加分类
+15. 商店菜单: 左右边的滚动联动的开发，使用`better-scroll`优化体验

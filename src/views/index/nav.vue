@@ -68,7 +68,7 @@ const categoryList = [
 ]
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .nav {
     display: grid;
     grid-template-columns: repeat(5, 20%);
