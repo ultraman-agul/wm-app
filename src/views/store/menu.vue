@@ -8,7 +8,7 @@
             </ul>
         </div>
         <div ref="right" class="right">
-            <article ref="categorys">
+            <article>
                 <section v-for="category in state.foodsData" :key="category.id">
                     <h2>{{ category.name }}</h2>
                     <article>
@@ -21,6 +21,7 @@
                                 <div class="sell-num">月售 {{ spus.month_saled_content }}</div>
                                 <span class="price"> ￥{{ spus.skus[0].price }}</span>
                             </div>
+                            <pick-food :name="spus.name" :food_id="spus.skus[0].id" :price="spus.skus[0].price" :pic="spus.pic_url" @showDot="showDotFun"> </pick-food>
                         </section>
                     </article>
                 </section>
@@ -30,10 +31,12 @@
 </template>
 
 <script lang="ts" setup>
+
 import BScroll from 'better-scroll'
 import { getFoods } from '@/api/restaurant'
 import { reactive, nextTick, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import PickFood from '@/components/PickFood.vue'
 
 const state = reactive({
     foodsData: [], // 食品数据
@@ -44,14 +47,14 @@ const state = reactive({
     categoryBoxList: [], // 存放右边元素的每一项
     loadedImg: [], // 图片已经加载过的index
 })
-const left = ref(null)
-const right = ref(null)
+const left = ref<HTMLDivElement>()
+const right = ref<HTMLDivElement>()
 
 const route = useRoute()
 
 onMounted(() => { // 设置当前scrollwarp容器的高度
     let h = document.documentElement.clientHeight - 220 + 'px'
-    right.value.style.height = h
+    right.value && (right.value.style.height = h)
 })
 // 获取分类以及食品数据
 getFoods({ restaurant_id: route.query.id }).then(async data => {
@@ -131,6 +134,8 @@ const loadImg = (index: number) => {
         item.src = item.getAttribute('realsrc')
     })
 }
+
+const showDotFun = () => {}
 </script>
 
 <style lang="scss" scoped>

@@ -27,3 +27,4 @@ Since TypeScript cannot handle type information for `.vue` imports, they are shi
 13. 商家详情: 根据 id 获取商家信息
 14. 商店分类: 根据商家 id 添加分类
 15. 商店菜单: 左右边的滚动联动的开发，使用`better-scroll`优化体验
+16. 食品图片懒加载

@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    PickFood: typeof import('./src/components/PickFood.vue')['default']
     TabBar: typeof import('./src/components/TabBar.vue')['default']
     TopHead: typeof import('./src/components/TopHead.vue')['default']
     VarButton: typeof import('@varlet/ui')['_ButtonComponent']

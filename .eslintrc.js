@@ -40,6 +40,7 @@ module.exports = {
         'arrow-parens': 'off',
         semi: ['error', 'never'],
         eqeqeq: 'off',
+        camelcase: 'off',
         'no-param-reassign': 'off',
         'import/prefer-default-export': 'off',
         'no-use-before-define': 'off',
