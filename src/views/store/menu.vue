@@ -14,7 +14,7 @@
                     <article>
                         <section v-for="spus in category.spus" :key="spus.id">
                             <div class="img">
-                                <img :src="spus.pic_url" />
+                                <img :realsrc="spus.pic_url" src="@/assets/shoploading.png" />
                             </div>
                             <div class="info">
                                 <div class="name">{{ spus.name }}</div>
@@ -41,15 +41,19 @@ const state = reactive({
     rightScroll: null, // 右边滚动对象
     menuIndex: 0, // 左侧当前是第几个分类
     categoryPosition: [], // 存放各个分类的categoryPosition 为了点击左侧让右侧对应滚动
+    categoryBoxList: [], // 存放右边元素的每一项
+    loadedImg: [], // 图片已经加载过的index
 })
 const left = ref(null)
 const right = ref(null)
+
 const route = useRoute()
 
-onMounted(() => {
+onMounted(() => { // 设置当前scrollwarp容器的高度
     let h = document.documentElement.clientHeight - 220 + 'px'
     right.value.style.height = h
 })
+// 获取分类以及食品数据
 getFoods({ restaurant_id: route.query.id }).then(async data => {
     if (data.status === 200) {
         state.foodsData = data.data
@@ -66,10 +70,12 @@ getFoods({ restaurant_id: route.query.id }).then(async data => {
             let dom = (right.value.children)[0] // 确定各分类categoryPosition
             let listsArr = Array.from(dom.childNodes)
             listsArr = listsArr.slice(1, -1)
+            state.categoryBoxList = listsArr
             listsArr.forEach((item, index) => {
                 state.categoryPosition[index] = item.offsetTop // 将右边每个分类的元素的位置保存起来
             })
             listenScroll() // 监听右侧滚动
+            loadImg(0) // 加载第一个分类的图片
         })
     }
 }).catch(e => {
@@ -82,12 +88,13 @@ const handleLeftCilck = (index: number) => {
     state.rightScroll.scrollTo(0, -state.categoryPosition[index], 500) // 参数： x坐标  y坐标  执行时长
     state.menuIndex = index
     setTimeout(listenScroll, 700) // 再次监听，延迟大于上方动画的500ms
+    loadImg(index)
 }
 
 const handleRightScroll = (pos: any) => {
     // 右侧滚动时  判断当前左侧是第几个分类
     // 当右边分类位置小于当前页面上方卷出距离且下一个分类位置大于当前卷出距离， 或者已经最后一个分类
-    // 满足上方条件更改左边菜单的样式
+    // 满足上方条件更改左边菜单的样式，加载图片
     for (let i = 0; i < state.categoryPosition.length; i++) {
         if (
             (state.categoryPosition[i] <= Math.ceil(Math.abs(pos.y))
@@ -95,6 +102,8 @@ const handleRightScroll = (pos: any) => {
           || state.categoryPosition[i + 1] > Math.ceil(Math.abs(pos.y))
         ) {
             state.menuIndex = i
+            loadImg(i)
+            loadImg(i + 1)
             break
         }
     }
@@ -103,6 +112,24 @@ const handleRightScroll = (pos: any) => {
 // 监听滚动事件
 const listenScroll = () => {
     state.rightScroll.on('scroll', handleRightScroll)
+}
+
+// 图片懒加载
+// 当调此函数将当前分类下的食品图片src更换成真实图片，从而实现懒加载
+// 三个地方调用此函数：
+// 1.初始获取到数据时->第一个分类，
+// 2.滚动右边食品时->加载当前分类以及下一个分类（预加载），
+// 3.点击左边分类时->加载对应分类的食品图片
+const loadImg = (index: number) => {
+    // 如果已经加载过则return
+    if (state.loadedImg.includes(index) || state.loadedImg.length === state.categoryBoxList.length) {
+        return
+    }
+    state.loadedImg.push(index)
+    const imgList = Array.from(state.categoryBoxList[index].querySelectorAll('img'))
+    imgList.forEach(item => {
+        item.src = item.getAttribute('realsrc')
+    })
 }
 </script>
 
