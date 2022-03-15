@@ -9,8 +9,14 @@
 
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
+import { useCartStore } from '@/store/cart'
 
 const route = useRoute()
+const store = useCartStore()
+const cartList = localStorage.getItem('cartList')
+if (cartList) {
+    store.cartList = JSON.parse(cartList)
+}
 const successTheme = {
     '--rate-primary-color': '#ffd161',
     '--button-primary-color': '#ffd161',

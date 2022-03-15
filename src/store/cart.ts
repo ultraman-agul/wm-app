@@ -25,6 +25,7 @@ export const useCartStore = defineStore('cart', {
     }),
 
     actions: {
+        // 食物数量加一
         addCart(food) {
             const { restaurant_id, restaurant_name, pic_url, food_id, price, name, foods_pic } = food
             if (!this.cartList[restaurant_id]) {
@@ -55,10 +56,10 @@ export const useCartStore = defineStore('cart', {
             localStorage.setItem('cartList', JSON.stringify(this.cartList)) // 存储到本地存储中
         },
 
+        // 食物数量减一
         reduceCart(food) {
             const { restaurant_id, food_id } = food
             const restaurant = this.cartList[restaurant_id]
-            debugger
             restaurant[food_id].num--
             restaurant.totalNum--
             if (restaurant[food_id].num === 0) {
@@ -68,6 +69,12 @@ export const useCartStore = defineStore('cart', {
                 delete this.cartList[restaurant_id]
             }
 
+            localStorage.setItem('cartList', JSON.stringify(this.cartList))
+        },
+
+        // 清空购物车
+        emptyCart(id) {
+            delete this.cartList[id]
             localStorage.setItem('cartList', JSON.stringify(this.cartList))
         },
     },

@@ -28,6 +28,7 @@
             </article>
         </div>
     </div>
+    <bottom-cart></bottom-cart>
 </template>
 
 <script lang="ts" setup>
@@ -37,6 +38,7 @@ import { getFoods } from '@/api/restaurant'
 import { reactive, nextTick, ref, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import PickFood from '@/components/PickFood.vue'
+import bottomCart from './bottomCart.vue'
 
 const state = reactive({
     foodsData: [], // 食品数据
@@ -144,7 +146,7 @@ const showDotFun = () => {}
     height: 100%;
     display: flex;
     flex: 1;
-    padding-bottom: 60px;
+    padding-bottom: 50px;
     overflow: hidden;
 
     .left,
