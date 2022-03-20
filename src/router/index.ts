@@ -52,6 +52,16 @@ const routes: Array<RouteRecordRaw> = [
         ],
     },
     {
+        path: '/comfirmOrder',
+        name: '订单',
+        component: () => import('@/views/confirmOrder/index.vue'),
+    },
+    {
+        path: '/order',
+        name: '我的订单',
+        component: () => import('@/views/order/index.vue'),
+    },
+    {
         path: '/404',
         name: '404',
         component: () => import('@/views/404/index.vue'),

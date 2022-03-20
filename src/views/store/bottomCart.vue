@@ -43,9 +43,10 @@ import PickFood from '@/components/PickFood.vue'
 import { reactive, computed, watch, toRefs } from 'vue'
 import { useCartStore } from '@/store/Cart'
 import { useRestaurantStore } from '@/store/restaurant'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const route = useRoute()
+const router = useRouter()
 const store = useCartStore()
 const shopStore = useRestaurantStore()
 const state = reactive({
@@ -92,15 +93,14 @@ const prepareOrder = () => { // 准备下订单
         restaurant_id,
         foods: store.cartList[restaurant_id]
     }
+    localStorage.setItem('comfirmOrder', JSON.stringify(data))
+    router.push('/comfirmOrder')
     console.log('准备下单')
 }
 const emptyCart = () => {
     store.emptyCart(restaurant_id)
     cartDetail.value = false
 }
-// watch(() => totalPrice.value, (val) => { // watch totalPrice 如果为0 就隐藏购物车底部点击后显示出来的商品
-//     if (val === 0) { this.cartDetail = false }
-// })
 </script>
 
 <style lang="scss" scoped>
