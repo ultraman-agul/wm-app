@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia'
 import { getLocation } from '@/api/location'
-import router from '@/router/index'
 
 export const useAddressStore = defineStore('address', {
     state: () => ({
         lat: '', // 当前位置纬度
         lng: '', // 当前位置经度
         address: '定位中...',
+        deliveryAddress: '',
     }),
 
     actions: {
@@ -20,7 +20,6 @@ export const useAddressStore = defineStore('address', {
                     this.lat = result.data.location.lat
                     this.lng = result.data.location.lng
                     console.log(this.address)
-                    router.push('/index')
                 }
             } catch (e) {
                 console.log(e)
@@ -28,8 +27,15 @@ export const useAddressStore = defineStore('address', {
         },
 
         // 更改收货地址
-        setAddress(text: string) {
-            this.address = text
+        setAddress(address: any) {
+            this.address = address.title
+            this.lat = address.location.lat
+            this.lng = address.location.lng
+        },
+
+        // 添加收货地址
+        setAddAddress(address: any) {
+            this.deliveryAddress = address
         },
     },
 })

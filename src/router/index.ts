@@ -62,6 +62,19 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/order/index.vue'),
     },
     {
+        path: '/address',
+        name: '我的收货地址',
+        component: () => import('@/views/address/address.vue'),
+    },
+    {
+        path: '/add_Address',
+        name: '添加收货地址',
+        meta: {
+            keepAlive: true,
+        },
+        component: () => import('@/views/address/addAddress.vue'),
+    },
+    {
         path: '/404',
         name: '404',
         component: () => import('@/views/404/index.vue'),

@@ -10,12 +10,12 @@
             <var-button type="primary">搜索</var-button>
         </div>
         <ul>
-            <li v-for="item in state.addressList" :key="item.id" @click="setAddress(item.title)">
+            <li v-for="item in state.addressList" :key="item.id" @click="setAddress(item)">
                 <p>{{ item.title }}</p>
                 <p>{{ item.address }}</p>
             </li>
         </ul>
-        <var-button block color="#fff" @click="getNowLocation"><var-icon name="map-marker-radius" />点击定位当前位置</var-button>
+        <var-button v-if="!flag" block color="#fff" @click="getNowLocation"> <var-icon name="map-marker-radius" />点击定位当前位置 </var-button>
     </div>
 </template>
 
@@ -24,9 +24,11 @@ import { useAddressStore } from '@/store/address'
 import { locationSearch } from '@/api/location'
 import { ref, reactive } from 'vue'
 import { Snackbar } from '@varlet/ui'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 const router = useRouter()
+const route = useRoute()
+const flag = route.query.addAddress
 let address = ref('')
 let timer: any
 const state = reactive({
@@ -37,11 +39,18 @@ const store = useAddressStore()
 
 function getNowLocation() {
     store.getNowlocation()
+    // 首页点进来，点击后回退到首页
+    router.push('/index')
 }
 
-function setAddress(title:string) {
-    store.setAddress(title)
-    router.push('/index')
+function setAddress(item:any) {
+    if (!flag) { // 首页点进来，点击后回退到首页
+        store.setAddress(item)
+        router.push('/index')
+    } else { // 添加收货地址，回退上页
+        store.setAddAddress(item)
+        router.go(-1)
+    }
 }
 
 function search(val:any) {
