@@ -67,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/address/address.vue'),
     },
     {
-        path: '/add_Address',
+        path: '/addAddress',
         name: '添加收货地址',
         meta: {
             keepAlive: true,

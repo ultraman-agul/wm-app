@@ -3,7 +3,7 @@
     <div id="confirm-order">
         <div class="delivery-info-container">
             <!--地址信息-->
-            <router-link v-if="emptyAddress" class="info-container address-container" to="/add_address">
+            <router-link v-if="emptyAddress" class="info-container address-container" to="/addAddress">
                 <div class="address-info">
                     <var-icon name="plus-circle-outline" />
                     <span class="add-text">新增收货地址</span>
@@ -15,11 +15,11 @@
                     <div class="main-info">
                         <p class="address">
                             <var-icon name="map-marker" />
-                            {{ store.defaultAddress.address + store.defaultAddress.house_number }}
+                            {{ deliveryAddress.address + deliveryAddress.house_number }}
                         </p>
-                        <span class="name">{{ store.defaultAddress.name }}</span>
-                        <span class="gender">{{ store.defaultAddress.gender }}</span>
-                        <span class="phone">{{ store.defaultAddress.phone }}</span>
+                        <span class="name">{{ deliveryAddress.name }}</span>
+                        <span class="gender">{{ deliveryAddress.gender }}</span>
+                        <span class="phone">{{ deliveryAddress.phone }}</span>
                     </div>
                 </div>
                 <var-icon name="chevron-right" />
@@ -98,7 +98,7 @@ import { getAllAddress } from '@/api/address'
 import { ref, reactive, computed } from 'vue'
 import { useAddressStore } from '@/store/address'
 
-const emptyAddress = ref(true)
+const emptyAddress = ref(false)
 const comfirmOrder = JSON.parse(localStorage.getItem('comfirmOrder'))
 console.log(comfirmOrder)
 const totalNum = ref(0)
@@ -109,7 +109,7 @@ const state = reactive({
     order_data: [],
 })
 const store = useAddressStore()
-const defaultAddress = computed(() => store.defaultAddress)
+const deliveryAddress = computed(() => store.deliveryAddress)
 if (comfirmOrder) {
     totalNum.value = comfirmOrder.foods.totalNum
     totalPrice.value = comfirmOrder.foods.totalPrice
@@ -123,15 +123,18 @@ if (comfirmOrder) {
     console.log(state.order_data)
 }
 
-getAllAddress().then(data => {
-    console.log(data)
-    if (data.address && data.address.length > 0) {
-        store.setDefaultAddress(data.address[0])
-        emptyAddress.value = false
-    } else {
-        emptyAddress.value = true
-    }
-})
+if(!deliveryAddress.value){
+    getAllAddress().then(data => {
+        console.log(data)
+        if (data.address && data.address.length > 0) {
+            store.setAddAddress(data.address[0])
+            emptyAddress.value = false
+        } else {
+            emptyAddress.value = true
+        }
+    })
+}
+
 
 function submit() {
 

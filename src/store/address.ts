@@ -7,7 +7,6 @@ export const useAddressStore = defineStore('address', {
         lng: '', // 当前位置经度
         address: '定位中...',
         deliveryAddress: '',
-        defaultAddress: {},
     }),
 
     actions: {
@@ -37,10 +36,6 @@ export const useAddressStore = defineStore('address', {
         // 添加收货地址
         setAddAddress(address: any) {
             this.deliveryAddress = address
-        },
-
-        setDefaultAddress(address: any) {
-            this.defaultAddress = address
         },
     },
 })
