@@ -10,14 +10,16 @@
                 </div>
                 <var-icon name="chevron-right" />
             </router-link>
-            <router-link v-else class="info-container address-container" to="/confirm_order/address">
+            <router-link v-else class="info-container address-container" to="/address">
                 <div class="address-info">
-                    <var-icon name="map-marker" />
                     <div class="main-info">
-                        <p class="address">{{ state.defaultAddress.address }}</p>
-                        <span class="name">{{ state.defaultAddress.name }}</span>
-                        <span class="gender">{{ gender }}</span>
-                        <span class="phone">{{ state.defaultAddress.phone }}</span>
+                        <p class="address">
+                            <var-icon name="map-marker" />
+                            {{ store.defaultAddress.address + store.defaultAddress.house_number }}
+                        </p>
+                        <span class="name">{{ store.defaultAddress.name }}</span>
+                        <span class="gender">{{ store.defaultAddress.gender }}</span>
+                        <span class="phone">{{ store.defaultAddress.phone }}</span>
                     </div>
                 </div>
                 <var-icon name="chevron-right" />
@@ -92,8 +94,9 @@
 </template>
 
 <script lang="ts" setup>
-import { getAllAddress } from '@/api/user'
-import { ref, reactive } from 'vue'
+import { getAllAddress } from '@/api/address'
+import { ref, reactive, computed } from 'vue'
+import { useAddressStore } from '@/store/address'
 
 const emptyAddress = ref(true)
 const comfirmOrder = JSON.parse(localStorage.getItem('comfirmOrder'))
@@ -104,8 +107,9 @@ const name = ref('')
 const pic_url = ref('')
 const state = reactive({
     order_data: [],
-    defaultAddress: {}, // 默认地址
 })
+const store = useAddressStore()
+const defaultAddress = computed(() => store.defaultAddress)
 if (comfirmOrder) {
     totalNum.value = comfirmOrder.foods.totalNum
     totalPrice.value = comfirmOrder.foods.totalPrice
@@ -122,7 +126,7 @@ if (comfirmOrder) {
 getAllAddress().then(data => {
     console.log(data)
     if (data.address && data.address.length > 0) {
-        state.defaultAddress = data.address[0]
+        store.setDefaultAddress(data.address[0])
         emptyAddress.value = false
     } else {
         emptyAddress.value = true

@@ -66,6 +66,8 @@ function submit() {
         }).then(data => {
             if(data.status === 200){
                 Snackbar.success(data.message)
+                store.defaultAddress = data.address
+                router.go(-1)
             }else{
                 Snackbar.error(data.message)
             }
@@ -93,7 +95,7 @@ function submit() {
         padding: 0 10px;
 
         .var-radio-group__wrap{
-            ::v-deep .var-radio-group{
+            :deep(.var-radio-group){
                 justify-content: center;
                 height: 50px;
                 line-height: 50px;

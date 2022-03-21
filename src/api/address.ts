@@ -7,3 +7,10 @@ export const addAddress = (data: object) => {
     }
     return _post(req)
 }
+
+export const getAllAddress = () => {
+    const req = {
+        url: 'address/get_all_address',
+    }
+    return _get(req)
+}

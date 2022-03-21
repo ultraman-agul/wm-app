@@ -21,13 +21,6 @@ export const addUser = (data: user) => {
     return _post(req)
 }
 
-export const getAllAddress = () => {
-    const req = {
-        url: 'admin/get_all_address',
-    }
-    return _get(req)
-}
-
 export const changeAvatar = (data: object) => {
     const req = {
         url: 'admin/change_avatar',
