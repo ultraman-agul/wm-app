@@ -8,10 +8,9 @@ export const makeOrder = (data: object) => {
     return _post(req)
 }
 
-export const getOrder = (data: object) => {
+export const getOrder = () => {
     const req = {
         url: '/v1/getOrder',
-        data,
     }
     return _get(req)
 }
