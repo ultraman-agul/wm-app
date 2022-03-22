@@ -95,11 +95,14 @@
 
 <script lang="ts" setup>
 import { getAllAddress } from '@/api/address'
+import { makeOrder } from '@/api/order'
 import { ref, reactive, computed } from 'vue'
 import { useAddressStore } from '@/store/address'
+import { Snackbar } from '@varlet/ui';
+import router from '@/router';
 
 const emptyAddress = ref(false)
-const comfirmOrder = JSON.parse(localStorage.getItem('comfirmOrder'))
+const comfirmOrder = JSON.parse(localStorage.getItem('comfirmOrder')) // 获取localstorage中的订单信息
 console.log(comfirmOrder)
 const totalNum = ref(0)
 const totalPrice = ref(0)
@@ -137,7 +140,21 @@ if(!deliveryAddress.value){
 
 
 function submit() {
-
+    if(emptyAddress.value){
+        Snackbar.warning('收货地址不能为空')
+        return;
+    }
+    const foods = []
+    state.order_data.forEach(item => {
+        foods.push({skus_id: item.id, num: item.num})
+    })
+    makeOrder({foods, restaurant_id: comfirmOrder.restaurant_id, address_id: deliveryAddress.value.id}).then(data => {
+        if(data.status === 200){
+            router.push('/pay')
+        }
+    }).catch(e => {
+        Snackbar.error(e)
+    })
 }
 </script>
 
