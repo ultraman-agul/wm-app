@@ -14,3 +14,20 @@ export const getOrder = () => {
     }
     return _get(req)
 }
+
+export const orderInfo = (data: any) => {
+    const req = {
+        url: '/v1/orderInfo',
+        data,
+    }
+    return _get(req)
+}
+
+// 订单评论
+export const makeComment = (data: any) => {
+    let req = {
+        data,
+        url: 'v1/makeComment',
+    }
+    return _post(req)
+}

@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
-import { userInfo, getAllAddress, changeAvatar } from '@/api/user'
+import { userInfo, changeAvatar } from '@/api/user'
 import { upload } from '@/api/upload'
 import { getInfo } from '@/utils/auth'
 import { Snackbar } from '@varlet/ui'
@@ -99,10 +99,6 @@ onMounted(async () => {
 })
 const jumpSubView = (item: funcItem) => {
     router.push(item.url)
-}
-const handleClick = async () => {
-    const content = await getAllAddress()
-    console.log(content)
 }
 
 const uploadPic = async (event: any) => {

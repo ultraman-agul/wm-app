@@ -60,6 +60,13 @@ const routes: Array<RouteRecordRaw> = [
         path: '/order',
         name: '我的订单',
         component: () => import('@/views/order/index.vue'),
+        children: [
+            {
+                path: '/order/comment',
+                name: '评价',
+                component: () => import('@/views/order/comment.vue'),
+            },
+        ],
     },
     {
         path: '/address',

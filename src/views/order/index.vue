@@ -1,7 +1,7 @@
 <template>
     <v-head title="订单"></v-head>
     <div id="order">
-        <div class="noOrder" v-show="noOrder"></div>
+        <div v-show="noOrder" class="noOrder"></div>
         <article v-show="!noOrder" ref="orderWrapper">
             <div class="container">
                 <router-link v-for="item in state.orderList" :key="item.id" class="section" :to="'/order_detail?id='+ item.id">
@@ -10,27 +10,28 @@
                             <img :src="item.restaurant.pic_url" />
                         </span>
                         <router-link :to="'/store/menu?id='+ item.restaurant.id" class="restaurant_name">
-                            {{item.restaurant.name}}
+                            {{ item.restaurant.name }}
                             <var-icon :size="22" name="chevron-right" class="rightArrow" />
                         </router-link>
                         <span class="order-status">已完成</span>
                     </div>
                     <div class="orderBox">
-                        <div class="info-container" v-for="food in item.foods" :key="food._id">
+                        <div v-for="food in item.foods" :key="food._id" class="info-container">
                             <img :src="food.pic_url" alt="" />
-                            <p>{{food.name}}</p>
+                            <p>{{ food.name }}</p>
                         </div>
                         <div class="price-container">
-                            <span>￥{{item.total_price}}</span>
-                            <span>共{{item.foods.length}}件</span>
+                            <span>￥{{ item.total_price }}</span>
+                            <span>共{{ item.foods.length }}件</span>
                         </div>
                     </div>
                     <div class="footer">
                         <router-link :to="{path:'/store',query:{id:item.restaurant.id}}">再来一单</router-link>
                         <a>小问卷</a>
-                        <router-link v-if="!item.has_comment" class="make_comment" :to="{path:'/order/comment',query:{order_id:item.id}}">评价 </router-link>
+                        <router-link v-if="!item.has_comment" class="make_comment" :to="{path:'/order/comment',query:{order_id:item.id}}"> 评价 </router-link>
                     </div>
                 </router-link>
+                <router-view></router-view>
             </div>
         </article>
     </div>
@@ -38,18 +39,19 @@
 
 <script lang="ts" setup>
 import { getOrder } from '@/api/order'
-import { reactive, ref } from 'vue';
+import { reactive, ref } from 'vue'
+
 const state = reactive({
     orderList: []
 })
 const noOrder = ref(false)
 getOrder().then(data => {
     // console.log(data)
-    if(data.status === 200) {
+    if (data.status === 200) {
         state.orderList = data.data
-        if(data.data.length > 0){
+        if (data.data.length > 0) {
             noOrder.value = false
-        }else{
+        } else {
             noOrder.value = true
         }
     }
