@@ -69,6 +69,11 @@ const routes: Array<RouteRecordRaw> = [
         ],
     },
     {
+        path: '/order_detail',
+        name: '订单详情',
+        component: () => import('@/views/order/orderDetail.vue'),
+    },
+    {
         path: '/address',
         name: '我的收货地址',
         component: () => import('@/views/address/address.vue'),

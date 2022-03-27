@@ -35,6 +35,7 @@
             </div>
         </article>
     </div>
+    <v-bar></v-bar>
 </template>
 
 <script lang="ts" setup>
