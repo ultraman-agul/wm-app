@@ -23,3 +23,11 @@ export const getFoods = (data: object) => {
     }
     return _get(req)
 }
+
+export const restaurantComment = (data: object) => {
+    const req = {
+        url: '/v1/restaurantComment',
+        data,
+    }
+    return _get(req)
+}

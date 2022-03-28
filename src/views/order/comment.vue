@@ -80,7 +80,7 @@ if (!order_id) {
         router.push('/index')
     }, 1000)
 }
-orderInfo({ id: order_id }).then((res) => {
+orderInfo({ order_id }).then((res) => {
     if (res.status === 200) {
         restaurant_info.value = res.data.restaurant
         console.log(restaurant_info.value)

@@ -167,7 +167,7 @@ function showStoreDetail() {
         display: flex;
         justify-content: space-around;
         align-items: center;
-
+        border-bottom: 1px solid #f4f4f4;
         .active {
             position: relative;
             color: #fc3;
