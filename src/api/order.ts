@@ -25,9 +25,17 @@ export const orderInfo = (data: any) => {
 
 // 订单评论
 export const makeComment = (data: any) => {
-    let req = {
+    const req = {
         data,
         url: 'v1/makeComment',
+    }
+    return _post(req)
+}
+
+export const pay = (data: any) => {
+    const req = {
+        data,
+        url: 'alipay/pay',
     }
     return _post(req)
 }

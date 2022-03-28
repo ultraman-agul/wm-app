@@ -74,6 +74,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/order/orderDetail.vue'),
     },
     {
+        path: '/pay',
+        name: '尽快支付',
+        component: () => import('@/views/pay/index.vue'),
+    },
+    {
         path: '/address',
         name: '我的收货地址',
         component: () => import('@/views/address/address.vue'),

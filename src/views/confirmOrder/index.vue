@@ -98,8 +98,8 @@ import { getAllAddress } from '@/api/address'
 import { makeOrder } from '@/api/order'
 import { ref, reactive, computed } from 'vue'
 import { useAddressStore } from '@/store/address'
-import { Snackbar } from '@varlet/ui';
-import router from '@/router';
+import { Snackbar } from '@varlet/ui'
+import router from '@/router'
 
 const emptyAddress = ref(false)
 const comfirmOrder = JSON.parse(localStorage.getItem('comfirmOrder')) // 获取localstorage中的订单信息
@@ -126,7 +126,7 @@ if (comfirmOrder) {
     console.log(state.order_data)
 }
 
-if(!deliveryAddress.value){
+if (!deliveryAddress.value) {
     getAllAddress().then(data => {
         console.log(data)
         if (data.address && data.address.length > 0) {
@@ -138,19 +138,18 @@ if(!deliveryAddress.value){
     })
 }
 
-
 function submit() {
-    if(emptyAddress.value){
+    if (emptyAddress.value) {
         Snackbar.warning('收货地址不能为空')
-        return;
+        return
     }
-    const foods = []
+    const foods:object[] = []
     state.order_data.forEach(item => {
-        foods.push({skus_id: item.id, num: item.num})
+        foods.push({ skus_id: item.id, num: item.num })
     })
-    makeOrder({foods, restaurant_id: comfirmOrder.restaurant_id, address_id: deliveryAddress.value.id}).then(data => {
-        if(data.status === 200){
-            router.push('/pay')
+    makeOrder({ foods, restaurant_id: comfirmOrder.restaurant_id, address_id: deliveryAddress.value.id }).then(res => {
+        if (res.status === 200) {
+            router.push(`/pay?orderId=${res.order_id}`)
         }
     }).catch(e => {
         Snackbar.error(e)
