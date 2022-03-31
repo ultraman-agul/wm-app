@@ -85,12 +85,9 @@ const state = reactive({
     shopInfo: {}, // 商店信息
     offset: 0,
 })
-onMounted(() => {
-    state.restaurant_id = route.query.id
-    restaurantComment({ restaurant_id: state.restaurant_id, offset: state.offset, limit: 5 }).then((res) => {
-        state.commentData = res.data
-    })
+state.restaurant_id = route.query.id
 
+onMounted(() => {
     // 根据商店id获取店家信息
     getResturantById({ id: state.restaurant_id }).then((res) => {
         state.shopInfo = res.data
@@ -98,7 +95,17 @@ onMounted(() => {
 })
 const load = () => {
     console.log('触发了load')
-    loading.value = false
+    loading.value = true
+    restaurantComment({ restaurant_id: state.restaurant_id, offset: state.offset, limit: 5 }).then((res) => {
+        if (!res.data.length) {
+            finished.value = true
+        }
+        state.commentData = state.commentData.concat(res.data)
+        state.offset++
+        loading.value = false
+    }).catch(e => {
+        loading.value = false
+    })
 }
 </script>
 
@@ -146,8 +153,6 @@ const load = () => {
         }
 
         .var-list{
-            height: 200px;
-            overflow-y: scroll;
             .var-cell{
                 .user-pic-url{
                     display: flex;
@@ -164,6 +169,7 @@ const load = () => {
                     }
                 }
                 .comment-main-part{
+                    line-height: 30px;
                     .comment-pic{
                         div{
                             display: inline-block;
