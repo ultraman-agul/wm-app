@@ -45,7 +45,6 @@
                 </li>
             </ul>
         </div>
-        <var-button style="margin-top: 50px;" @click="getResturant"> 获取餐馆列表 </var-button>
     </div>
 </template>
 
@@ -140,6 +139,7 @@ function getResturant() {
     }
 
     .container {
+        padding-bottom: 40px;
         .shop-item {
             display: flex;
             justify-content: flex-start;

@@ -65,7 +65,7 @@ function close() { // 关闭详情页
         transform: translate(-50%, -60%);
         width: 300px;
         height: 300px;
-        background: #151515;
+        background: rgba($color: #000000, $alpha: 0.8);
         overflow: auto;
         border-radius: 6px;
         padding: 4px;
