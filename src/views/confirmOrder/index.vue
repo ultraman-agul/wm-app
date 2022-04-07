@@ -98,6 +98,7 @@ import { getAllAddress } from '@/api/address'
 import { makeOrder } from '@/api/order'
 import { ref, reactive, computed } from 'vue'
 import { useAddressStore } from '@/store/address'
+import { useCartStore } from '@/store/cart'
 import { Snackbar } from '@varlet/ui'
 import router from '@/router'
 
@@ -112,6 +113,7 @@ const state = reactive({
     order_data: [],
 })
 const store = useAddressStore()
+const cartStore = useCartStore()
 const deliveryAddress = computed(() => store.deliveryAddress)
 if (comfirmOrder) {
     totalNum.value = comfirmOrder.foods.totalNum
@@ -147,9 +149,14 @@ function submit() {
     state.order_data.forEach(item => {
         foods.push({ skus_id: item.id, num: item.num })
     })
+    if (foods.length === 0) {
+        Snackbar.warning('请选择商品再下单')
+        return
+    }
     makeOrder({ foods, restaurant_id: comfirmOrder.restaurant_id, address_id: deliveryAddress.value.id }).then(res => {
         if (res.status === 200) {
             router.push(`/pay?orderId=${res.order_id}`)
+            cartStore.emptyCart(comfirmOrder.restaurant_id)
         }
     }).catch(e => {
         Snackbar.error(e)

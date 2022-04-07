@@ -36,7 +36,7 @@
                 <nearby-shops></nearby-shops>
             </div>
         </div>
-
+        <little-cart></little-cart>
         <!-- 底部 -->
         <v-bar></v-bar>
     </div>
@@ -44,7 +44,9 @@
 
 <script lang="ts" setup>
 import vNav from './nav.vue'
-import nearbyShops from './nearby_shops.vue'
+import nearbyShops from './nearbyShops.vue'
+import littleCart from './littleCart.vue'
+
 import { computed } from 'vue'
 import { useAddressStore } from '@/store/address'
 

@@ -13,6 +13,7 @@ declare module 'vue' {
     VarCheckbox: typeof import('@varlet/ui')['_CheckboxComponent']
     VarChip: typeof import('@varlet/ui')['_ChipComponent']
     VarCol: typeof import('@varlet/ui')['_ColComponent']
+    VarCountdown: typeof import('@varlet/ui')['_CountdownComponent']
     VarForm: typeof import('@varlet/ui')['_FormComponent']
     VarIcon: typeof import('@varlet/ui')['_IconComponent']
     VarInput: typeof import('@varlet/ui')['_InputComponent']

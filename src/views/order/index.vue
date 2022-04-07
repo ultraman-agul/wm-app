@@ -13,7 +13,7 @@
                             {{ item.restaurant.name }}
                             <var-icon :size="22" name="chevron-right" class="rightArrow" />
                         </router-link>
-                        <span class="order-status">已完成</span>
+                        <span class="order-status">{{ item.status }}</span>
                     </div>
                     <div class="orderBox">
                         <div v-for="food in item.foods" :key="food._id" class="info-container">
@@ -50,6 +50,7 @@ getOrder().then(data => {
     // console.log(data)
     if (data.status === 200) {
         state.orderList = data.data
+        console.log(state.orderList)
         if (data.data.length > 0) {
             noOrder.value = false
         } else {

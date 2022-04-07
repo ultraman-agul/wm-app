@@ -39,3 +39,11 @@ export const pay = (data: any) => {
     }
     return _post(req)
 }
+
+export const successPay = (data: any) => {
+    const req = {
+        data,
+        url: 'alipay/successPay',
+    }
+    return _get(req)
+}

@@ -4,6 +4,8 @@
         <span class="title">{{ title }}</span>
         <var-icon v-if="props.more" name="dots-vertical" class="more" :size="26" />
         <slot name="add"></slot>
+        <slot name="edit-cart"></slot>
+        <slot name="cancel-edit-cart"></slot>
     </div>
 </template>
 
@@ -11,7 +13,7 @@
 import { useRouter } from 'vue-router'
 
 const props = defineProps<{
-    title: string,
+    title?: string,
     more?: boolean,
     store?: boolean,
 }>()

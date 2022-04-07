@@ -60,12 +60,13 @@ export const useCartStore = defineStore('cart', {
         reduceCart(food) {
             const { restaurant_id, food_id } = food
             const restaurant = this.cartList[restaurant_id]
+            restaurant.totalPrice = (Number(restaurant.totalPrice) - Number(restaurant[food_id].price)).toFixed(2) // 计算总价格
             restaurant[food_id].num--
             restaurant.totalNum--
-            if (restaurant[food_id].num === 0) {
-                delete restaurant.food_id
+            if (restaurant[food_id].num == 0) {
+                delete restaurant[food_id]
             }
-            if (restaurant.totalNum === 0) {
+            if (restaurant.totalNum == 0) {
                 delete this.cartList[restaurant_id]
             }
 
@@ -75,6 +76,11 @@ export const useCartStore = defineStore('cart', {
         // 清空购物车
         emptyCart(id) {
             delete this.cartList[id]
+            localStorage.setItem('cartList', JSON.stringify(this.cartList))
+        },
+
+        deleteFood({ restaurant_id, food_id }) {
+            delete this.cartList[restaurant_id][food_id]
             localStorage.setItem('cartList', JSON.stringify(this.cartList))
         },
     },
