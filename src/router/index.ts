@@ -31,6 +31,11 @@ const routes: Array<RouteRecordRaw> = [
         component: () => import('@/views/location/index.vue'),
     },
     {
+        path: '/search',
+        name: '搜索',
+        component: () => import('@/views/search/index.vue'),
+    },
+    {
         path: '/store',
         name: '商店',
         component: () => import('@/views/store/index.vue'),

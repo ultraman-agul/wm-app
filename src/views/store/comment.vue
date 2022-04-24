@@ -49,13 +49,18 @@
                         <span><var-rate v-model="item.food_score" :size="16" readonly /></span>
                     </div>
                     <div class="comment-main-part">
-                        <p class="comment">{{ item.comment_data }}</p>
+                        <p class="comment">
+                            <span v-for="subItem in item.foods" style="color: skyblue;">#{{ subItem.name }} </span>{{ item.comment_data }}
+                        </p>
                         <div class="comment-pic">
-                            <div v-for="(pic,index) in item.pic_url" :key="index" @click="show_big_pic_event(pic)">
+                            <div v-for="(pic,index) in item.pic_url" :key="index" @click="showBigPic(pic)">
                                 <img :src="pic" />
                             </div>
                         </div>
-                        <div v-if="item.add_comment_list" class="poi-reply-contents-container"></div>
+                        <div v-if="item.add_comment_list[0]" class="poi-reply-contents-container">
+                            商家回复：{{ item.add_comment_list[0].content }}
+                            <p>{{ moment(item.add_comment_list[0].time).format('YYYY-MM-DD HH:mm:ss') }}</p>
+                        </div>
                     </div>
                 </var-cell>
             </var-list>
@@ -74,6 +79,7 @@
 <script lang="ts" setup>
 import { reactive, onMounted, ref } from 'vue'
 import { restaurantComment, getResturantById } from '@/api/restaurant'
+import moment from 'moment'
 import { useRoute } from 'vue-router'
 
 const finished = ref(false)
@@ -84,6 +90,8 @@ const state = reactive({
     commentData: [],
     shopInfo: {}, // 商店信息
     offset: 0,
+    show_big_pic: false,
+    big_pic_url: ''
 })
 state.restaurant_id = route.query.id
 
@@ -100,12 +108,21 @@ const load = () => {
         if (!res.data.length) {
             finished.value = true
         }
+        res.data.forEach((item, index) => {
+            item.foods = res.foodData[index]
+        })
         state.commentData = state.commentData.concat(res.data)
+        console.log(state.commentData)
         state.offset++
         loading.value = false
     }).catch(e => {
         loading.value = false
     })
+}
+
+function showBigPic(url: string) {
+    state.show_big_pic = true
+    state.big_pic_url = url
 }
 </script>
 
@@ -182,7 +199,31 @@ const load = () => {
                         }
                     }
                 }
+                .poi-reply-contents-container{
+                    background-color: #f4f4f4;
+                    padding: 4px;
+                    border-radius: 4px;
+                    p{
+                        font-size: 12px;
+                        text-align: right;
+                    }
+                }
             }
+        }
+    }
+
+    .show-big-pic{
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(2, 2, 2, 0.8);
+        img{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
     }
 }

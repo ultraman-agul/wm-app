@@ -81,6 +81,12 @@ export const useCartStore = defineStore('cart', {
 
         deleteFood({ restaurant_id, food_id }) {
             delete this.cartList[restaurant_id][food_id]
+            // 如果已经删除了该店铺下的所有食品则删除该店铺
+            let flag = Object.keys(this.cartList[restaurant_id]).some((item) => Number(item))
+            console.log(flag)
+            if (!flag) {
+                delete this.cartList[restaurant_id]
+            }
             localStorage.setItem('cartList', JSON.stringify(this.cartList))
         },
     },

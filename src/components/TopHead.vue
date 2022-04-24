@@ -2,10 +2,12 @@
     <div class="head">
         <var-icon name="chevron-left" class="go-back" :size="26" @click="goBack()" />
         <span class="title">{{ title }}</span>
-        <var-icon v-if="props.more" name="dots-vertical" class="more" :size="26" />
-        <slot name="add"></slot>
-        <slot name="edit-cart"></slot>
-        <slot name="cancel-edit-cart"></slot>
+        <span style="float: right">
+            <var-icon v-if="props.more" name="dots-vertical" class="more" :size="26" />
+            <slot name="add"></slot>
+            <slot name="edit-cart"></slot>
+            <slot name="cancel-edit-cart"></slot>
+        </span>
     </div>
 </template>
 

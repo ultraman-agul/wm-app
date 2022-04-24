@@ -18,7 +18,7 @@
                             <div class="score">
                                 <var-icon name="star" color="#ff8000" size="15" />
                                 <span class="score-num">{{ item.wm_poi_score }}</span>
-                                <span class="sell-num">{{ item.month_sales_tip }}</span>
+                                <span class="sell-num">月售{{ item.month_sales }}笔</span>
                             </div>
                             <div class="delivery-info">
                                 <span class="deliver-time">{{ item.delivery_time_tip }}</span>
@@ -68,52 +68,52 @@ watch(() => addressStore.address, async () => {
 }, { immediate: true, deep: true })
 const state = reactive({
     shopList: [
-        {
-            address: '万达广场2楼1号商铺',
-            average_price_tip: '人均20',
-            bulletin: '欢迎下单',
-            call_center: '1122-2334578',
-            comment_number: 1,
-            created_at: '2022-03-05T05:08:44.533Z',
-            delivery_score: 2.8,
-            delivery_time_tip: '50分钟',
-            discounts2: [
-                {
-                    icon_url: 'http://p0.meituan.net/xianfu/f8bc8dffdbc805878aa3801a33f563cd1001.png',
-                    info: '满20减18;满45减40;满60减53',
-                    promotion_type: 2
-                },
-                {
-                    icon_url: 'http://p1.meituan.net/xianfu/9c997ecce6150671b8459738a26f8bd9767.png',
-                    info: '折扣商品7.33折起',
-                    promotion_type: 2
-                },
-                {
-                    icon_url: 'http://p0.meituan.net/xianfu/019d1bbb1310b1531e6af6172c9a5095581.png',
-                    info: '新用户立减2元,首次使用银行卡支付最高再减3元',
-                    promotion_type: 2
-                }
-            ],
-            distance: '',
-            food_score: 0.3,
-            id: 1,
-            lat: '23.13170',
-            lng: '113.26626',
-            min_price: 20,
-            min_price_tip: '起送 ￥20',
-            month_sales: 32,
-            month_sales_tip: '月售1笔',
-            name: '麦当劳',
-            pack_score: 3.6,
-            pic_url: 'http://p0.meituan.net/xianfu/851a8deb169f4f8aab16a7688932328f5634.jpg',
-            quality_score: 3.4,
-            shipping_fee: 3,
-            shipping_fee_tip: '配送 ￥3',
-            shopping_time_end: '24:00',
-            shopping_time_start: '8:00',
-            third_category: '中式简餐',
-            wm_poi_score: 2.8
-        }
+        // {
+        //     address: '万达广场2楼1号商铺',
+        //     average_price_tip: '人均20',
+        //     bulletin: '欢迎下单',
+        //     call_center: '1122-2334578',
+        //     comment_number: 1,
+        //     created_at: '2022-03-05T05:08:44.533Z',
+        //     delivery_score: 2.8,
+        //     delivery_time_tip: '50分钟',
+        //     discounts2: [
+        //         {
+        //             icon_url: 'http://p0.meituan.net/xianfu/f8bc8dffdbc805878aa3801a33f563cd1001.png',
+        //             info: '满20减18;满45减40;满60减53',
+        //             promotion_type: 2
+        //         },
+        //         {
+        //             icon_url: 'http://p1.meituan.net/xianfu/9c997ecce6150671b8459738a26f8bd9767.png',
+        //             info: '折扣商品7.33折起',
+        //             promotion_type: 2
+        //         },
+        //         {
+        //             icon_url: 'http://p0.meituan.net/xianfu/019d1bbb1310b1531e6af6172c9a5095581.png',
+        //             info: '新用户立减2元,首次使用银行卡支付最高再减3元',
+        //             promotion_type: 2
+        //         }
+        //     ],
+        //     distance: '',
+        //     food_score: 0.3,
+        //     id: 1,
+        //     lat: '23.13170',
+        //     lng: '113.26626',
+        //     min_price: 20,
+        //     min_price_tip: '起送 ￥20',
+        //     month_sales: 32,
+        //     month_sales_tip: '月售1笔',
+        //     name: '麦当劳',
+        //     pack_score: 3.6,
+        //     pic_url: 'http://p0.meituan.net/xianfu/851a8deb169f4f8aab16a7688932328f5634.jpg',
+        //     quality_score: 3.4,
+        //     shipping_fee: 3,
+        //     shipping_fee_tip: '配送 ￥3',
+        //     shopping_time_end: '24:00',
+        //     shopping_time_start: '8:00',
+        //     third_category: '中式简餐',
+        //     wm_poi_score: 2.8
+        // }
     ]
 })
 function getResturant() {

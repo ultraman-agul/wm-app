@@ -186,6 +186,6 @@ const emptyCart = () => {
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: rgba(75, 75, 75, 0.9);
+    background: rgba($color: #000000, $alpha: 0.8);
 }
 </style>

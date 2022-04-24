@@ -5,7 +5,7 @@
         <div class="main">
             <div class="logo-box">
                 <img src="@/assets/shoploading.png" alt="" />
-                <p>美团外卖</p>
+                <p>agul外卖</p>
             </div>
             <var-form ref="form">
                 <var-input v-model="formData.username" placeholder="请输入用户名" :rules="[(v:any) => !!v || '用户名不能为空']" />
@@ -53,7 +53,7 @@ const login = async () => {
         if (result.status === 200) {
             localStorage.setItem('token', result.token)
             setInfo(result.username)
-            Snackbar.success('登陆成功')
+            Snackbar.success(result.message)
             router.push('/index')
         } else {
             console.log(result.message)

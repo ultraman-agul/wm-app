@@ -18,7 +18,7 @@
                             </div>
                             <div class="info">
                                 <div class="name">{{ spus.name }}</div>
-                                <div class="sell-num">月售 {{ spus.month_saled_content }}</div>
+                                <div class="sell-num">月售 {{ spus.month_saled }}</div>
                                 <span class="price"> ￥{{ spus.skus[0].price }}</span>
                             </div>
                             <pick-food :name="spus.name" :food_id="spus.skus[0].id" :price="spus.skus[0].price" :pic="spus.pic_url" @showDot="showDotFun"> </pick-food>

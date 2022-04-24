@@ -29,10 +29,6 @@
                     <h3>附近商家</h3>
                     <span class="line"></span>
                 </div>
-                <!-- <nearby-shops
-                :scrollWrapper="scrollWrapper"
-                v-if="locationReady"
-            ></nearby-shops> -->
                 <nearby-shops></nearby-shops>
             </div>
         </div>
