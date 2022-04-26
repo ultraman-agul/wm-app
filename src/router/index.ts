@@ -81,12 +81,20 @@ const routes: Array<RouteRecordRaw> = [
     {
         path: '/order_detail',
         name: '订单详情',
+        meta: {
+            keepAlive: true,
+        },
         component: () => import('@/views/order/orderDetail.vue'),
     },
     {
         path: '/pay',
         name: '尽快支付',
         component: () => import('@/views/pay/index.vue'),
+    },
+    {
+        path: '/successPay',
+        name: '支付成功',
+        component: () => import('@/views/pay/successPay.vue'),
     },
     {
         path: '/address',

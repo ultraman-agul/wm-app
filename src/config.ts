@@ -1,3 +1,3 @@
 export default {
-    baseURL: 'http://127.0.0.1:3000', // 后端地址
+    baseURL: 'http://1.14.132.215:3001', // 后端地址
 }

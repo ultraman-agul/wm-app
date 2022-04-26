@@ -17,35 +17,36 @@
     </div>
 </template>
 
-<script lang="ts" setup>
-import { pay, successPay } from '@/api/order'
+<script lang="ts">
+import { pay } from '@/api/order'
 import { useRoute } from 'vue-router'
-import { ref } from 'vue'
+import { ref, defineComponent, reactive, toRefs } from 'vue'
 import { Snackbar } from '@varlet/ui'
 import router from '@/router'
 
-const route = useRoute()
-const time = ref(15 * 60 * 1000)
-const payFn = () => {
-    console.log(time.value)
-    successPay({ id: route.query.orderId }).then(res => {
-        if (res.status === 200) {
-            Snackbar.success(res.message)
-            router.push('/order')
-        } else {
-            Snackbar.error(res.message)
+export default defineComponent({
+    setup() {
+        const route = useRoute()
+        const state = reactive({
+            time: ref(15 * 60 * 1000),
+            payFn() {
+                console.log(state)
+                pay({ id: route.query.orderId }).then(res => {
+                    console.log(res)
+                    if (res.status === 200) {
+                        console.log(res.url)
+                        window.location = res.url
+                    }
+                }).catch(e => {
+                    console.log(e)
+                })
+            },
+        })
+        return {
+            ...toRefs(state)
         }
-    })
-    // pay({ id: route.query.orderId }).then(res => {
-    //     console.log(res)
-    //     if (res.status === 200) {
-    //         console.log(res.url)
-    //         window.location = res.url
-    //     }
-    // }).catch(e => {
-    //     console.log(e)
-    // })
-}
+    }
+})
 </script>
 
 <style lang="scss" scoped>
