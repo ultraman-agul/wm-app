@@ -21,7 +21,7 @@
 
 <script lang="ts" setup>
 import { getAllAddress } from '@/api/address'
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { useAddressStore } from '@/store/address'
 import { useRouter } from 'vue-router'
 
@@ -31,11 +31,13 @@ const state = reactive({
     addressList: []
 })
 const store = useAddressStore()
-getAllAddress().then(data => {
-    if (data.status === 200) {
-        state.addressList = data.address
-    }
-}).catch(e => { console.log(e) })
+onMounted(() => {
+    getAllAddress().then(data => {
+        if (data.status === 200) {
+            state.addressList = data.address
+        }
+    }).catch(e => { console.log(e) })
+})
 
 function pickAddress(item) {
     console.log(item)

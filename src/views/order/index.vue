@@ -4,7 +4,7 @@
         <div v-show="noOrder" class="noOrder"></div>
         <article v-show="!noOrder" ref="orderWrapper">
             <div class="container">
-                <router-link v-for="item in state.orderList" :key="item.id" class="section" :to="'/order_detail?id='+ item.id">
+                <router-link v-for="item in orderList" :key="item.id" class="section" :to="'/order_detail?id='+ item.id">
                     <div class="title">
                         <span class="restaurant-picture">
                             <img :src="item.restaurant.pic_url" />
@@ -38,26 +38,36 @@
     <v-bar></v-bar>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts">
 import { getOrder } from '@/api/order'
-import { reactive, ref } from 'vue'
+import { reactive, toRefs, onMounted } from 'vue'
 
-const state = reactive({
-    orderList: []
-})
-const noOrder = ref(false)
-getOrder().then(data => {
-    // console.log(data)
-    if (data.status === 200) {
-        state.orderList = data.data
-        console.log(state.orderList)
-        if (data.data.length > 0) {
-            noOrder.value = false
-        } else {
-            noOrder.value = true
+export default {
+    setup() {
+        const state = reactive({
+            orderList: [],
+            noOrder: false
+        })
+        onMounted(() => {
+            getOrder().then(data => {
+            // console.log(data)
+                if (data.status === 200) {
+                    state.orderList = data.data
+                    console.log(state.orderList)
+                    if (data.data.length > 0) {
+                        state.noOrder = false
+                    } else {
+                        state.noOrder = true
+                    }
+                }
+            })
+        })
+
+        return {
+            ...toRefs(state)
         }
     }
-})
+}
 </script>
 
 <style lang="scss" scoped>

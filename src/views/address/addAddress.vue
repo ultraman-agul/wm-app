@@ -32,7 +32,7 @@ import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAddressStore } from '@/store/address'
 import { addAddress } from '@/api/address'
-import { Snackbar } from '@varlet/ui';
+import { Snackbar } from '@varlet/ui'
 
 const store = useAddressStore()
 const address = computed(() => store.deliveryAddress.title)
@@ -57,24 +57,23 @@ function submit() {
     if (form.value.validate()) {
         addAddress({
             name: formData.username,
-             phone: formData.phone,
-             address: address.value,
-             gender: formData.gender,
-             house_number: formData.house_number,
-             lng: store.deliveryAddress.location.lng,
-             lat: store.deliveryAddress.location.lat
+            phone: formData.phone,
+            address: address.value,
+            gender: formData.gender,
+            house_number: formData.house_number,
+            lng: store.deliveryAddress.location.lng,
+            lat: store.deliveryAddress.location.lat
         }).then(data => {
-            if(data.status === 200){
+            if (data.status === 200) {
                 Snackbar.success(data.message)
                 store.defaultAddress = data.address
                 router.go(-1)
-            }else{
+            } else {
                 Snackbar.error(data.message)
             }
         }).catch(e => {
             Snackbar.error(data.message)
         })
-
     }
 }
 </script>

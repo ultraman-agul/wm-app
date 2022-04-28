@@ -57,34 +57,34 @@ const route = useRoute()
 onMounted(() => { // 设置当前scrollwarp容器的高度
     let h = document.documentElement.clientHeight - 220 + 'px'
     right.value && (right.value.style.height = h)
-})
-// 获取分类以及食品数据
-getFoods({ restaurant_id: route.query.id }).then(async data => {
-    if (data.status === 200) {
-        state.foodsData = data.data
-        nextTick(() => {
+    // 获取分类以及食品数据
+    getFoods({ restaurant_id: route.query.id }).then(async data => {
+        if (data.status === 200) {
+            state.foodsData = data.data
+            nextTick(() => {
             // 初始化better-scroll
-            state.leftScroll = new BScroll(left.value, { click: true })
-            state.rightScroll = new BScroll(right.value, { click: true,
-                probeType: 3,
-                tap: true,
-                bounce: false,
-                scrollbar: true,
-                preventDefault: true,
-                mouseWheel: true })
-            let dom = (right.value.children)[0] // 确定各分类categoryPosition
-            let listsArr = Array.from(dom.childNodes)
-            listsArr = listsArr.slice(1, -1)
-            state.categoryBoxList = listsArr
-            listsArr.forEach((item, index) => {
-                state.categoryPosition[index] = item.offsetTop // 将右边每个分类的元素的位置保存起来
+                state.leftScroll = new BScroll(left.value, { click: true })
+                state.rightScroll = new BScroll(right.value, { click: true,
+                    probeType: 3,
+                    tap: true,
+                    bounce: false,
+                    scrollbar: true,
+                    preventDefault: true,
+                    mouseWheel: true })
+                let dom = (right.value.children)[0] // 确定各分类categoryPosition
+                let listsArr = Array.from(dom.childNodes)
+                listsArr = listsArr.slice(1, -1)
+                state.categoryBoxList = listsArr
+                listsArr.forEach((item, index) => {
+                    state.categoryPosition[index] = item.offsetTop // 将右边每个分类的元素的位置保存起来
+                })
+                listenScroll() // 监听右侧滚动
+                loadImg(0) // 加载第一个分类的图片
             })
-            listenScroll() // 监听右侧滚动
-            loadImg(0) // 加载第一个分类的图片
-        })
-    }
-}).catch(e => {
-    console.log(e)
+        }
+    }).catch(e => {
+        console.log(e)
+    })
 })
 
 // 点击左侧的分类时右侧滚动到对应的位置

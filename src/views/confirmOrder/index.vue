@@ -96,7 +96,7 @@
 <script lang="ts" setup>
 import { getAllAddress } from '@/api/address'
 import { makeOrder } from '@/api/order'
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive, computed, onMounted } from 'vue'
 import { useAddressStore } from '@/store/address'
 import { useCartStore } from '@/store/cart'
 import { Snackbar } from '@varlet/ui'
@@ -116,30 +116,32 @@ const state = reactive({
 const store = useAddressStore()
 const cartStore = useCartStore()
 const deliveryAddress = computed(() => store.deliveryAddress)
-if (comfirmOrder) {
-    totalNum.value = comfirmOrder.foods.totalNum
-    totalPrice.value = comfirmOrder.foods.totalPrice
-    name.value = comfirmOrder.foods.restaurant_name
-    pic_url.value = comfirmOrder.foods.pic_url
-    for (let key in comfirmOrder.foods) {
-        if (Number(key)) {
-            state.order_data.push(comfirmOrder.foods[key])
+onMounted(() => {
+    if (comfirmOrder) {
+        totalNum.value = comfirmOrder.foods.totalNum
+        totalPrice.value = comfirmOrder.foods.totalPrice
+        name.value = comfirmOrder.foods.restaurant_name
+        pic_url.value = comfirmOrder.foods.pic_url
+        for (let key in comfirmOrder.foods) {
+            if (Number(key)) {
+                state.order_data.push(comfirmOrder.foods[key])
+            }
         }
+        console.log(state.order_data)
     }
-    console.log(state.order_data)
-}
 
-if (!deliveryAddress.value) {
-    getAllAddress().then(data => {
-        console.log(data)
-        if (data.address && data.address.length > 0) {
-            store.setAddAddress(data.address[0])
-            emptyAddress.value = false
-        } else {
-            emptyAddress.value = true
-        }
-    })
-}
+    if (!deliveryAddress.value) {
+        getAllAddress().then(data => {
+            console.log(data)
+            if (data.address && data.address.length > 0) {
+                store.setAddAddress(data.address[0])
+                emptyAddress.value = false
+            } else {
+                emptyAddress.value = true
+            }
+        })
+    }
+})
 
 function submit() {
     if (emptyAddress.value) {

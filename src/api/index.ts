@@ -1,6 +1,7 @@
 import axioss from 'axios'
 import config from '@/config'
 import router from '@/router/index'
+import { Snackbar } from '@varlet/ui'
 
 const { baseURL } = config
 const axios = axioss.create({
@@ -21,6 +22,7 @@ axios.interceptors.response.use(
     (res) => {
         if (res.data.status === 403) {
             // token身份验证不通过,跳转登录页,删除token
+            Snackbar.warning('请先登录')
             router.push('/login')
             localStorage.removeItem('token')
         }

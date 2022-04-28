@@ -1,9 +1,12 @@
 <template>
     <var-style-provider :style-vars="successTheme" style="height: 100%;">
-        <KeepAlive>
+        <!-- <KeepAlive>
             <router-view v-if="route.meta.keepAlive"></router-view>
         </KeepAlive>
-        <router-view v-if="!route.meta.keepAlive"></router-view>
+        <router-view v-if="!route.meta.keepAlive"></router-view> -->
+        <!-- <KeepAlive> -->
+        <router-view></router-view>
+        <!-- </KeepAlive> -->
     </var-style-provider>
 </template>
 

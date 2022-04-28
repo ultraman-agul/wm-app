@@ -40,7 +40,7 @@
             </div>
 
             <div class="upload-picture-container">
-                <var-uploader v-model="files" :maxlength="3" :maxsize="10240" multiple @after-read="fileUpload" />
+                <var-uploader v-model="files" :maxlength="3" :multiple="true" @after-read="fileUpload" />
                 <div v-show="!uploadList.length" class="upload-description">
                     <h3>上传图片</h3>
                     <p>内容丰富的评论有机会成为优质评价哦</p>
@@ -54,7 +54,7 @@
 <script lang="ts" setup>
 import { orderInfo, makeComment } from '@/api/order'
 import { uploadCommentPic } from '@/api/upload'
-import { reactive, toRefs } from 'vue'
+import { reactive, toRefs, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import config from '@/config'
 import { Snackbar } from '@varlet/ui'
@@ -71,26 +71,29 @@ const state = reactive({
     uploadList: [], // 上传图片
     order_id: '',
     anonymous: false, // 匿名提交
-    files: ''
+    files: []
 })
 let { restaurant_info, deliveryScore, foodScore, satisfySubmit, commentData, uploadList, order_id, anonymous, files } = toRefs(state)
-order_id = route.query.order_id
-if (!order_id) {
-    setTimeout(() => {
-        router.push('/index')
-    }, 1000)
-}
-orderInfo({ order_id }).then((res) => {
-    if (res.status === 200) {
-        restaurant_info.value = res.data.restaurant
-        console.log(restaurant_info.value)
-    } else {
-        Snackbar.error(res.message)
+onMounted(() => {
+    order_id = route.query.order_id
+    if (!order_id) {
         setTimeout(() => {
-            router.go(-1)
-        }, 500)
+            router.push('/index')
+        }, 1000)
     }
+    orderInfo({ order_id }).then((res) => {
+        if (res.status === 200) {
+            restaurant_info.value = res.data.restaurant
+            console.log(restaurant_info.value)
+        } else {
+            Snackbar.error(res.message)
+            setTimeout(() => {
+                router.go(-1)
+            }, 500)
+        }
+    })
 })
+
 function input() {
     satisfySubmit.value = commentData.value.length >= 2
 }

@@ -71,7 +71,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, reactive, toRefs, computed } from 'vue'
+import { defineComponent, reactive, toRefs, computed, onMounted } from 'vue'
 import { useCartStore } from '@/store/cart'
 import { useRouter } from 'vue-router'
 
@@ -189,24 +189,27 @@ export default defineComponent({
                 state.emptyCart = !Object.keys(cartList.value).length
             }
         })
-        state.emptyCart = !Object.keys(cartList.value).length
-        Object.keys(cartList.value).forEach(restaurant_id => { // 初始化选中列表
-            state.selectFood[restaurant_id] = {
-                allSelect: true,
-                totalPrice: 0
-            }
-            state.deleteSelectFood[restaurant_id] = {
-                allSelect: false
-            }
-            let restaurant = cartList.value[restaurant_id]
-            Object.keys(restaurant).forEach(data => {
-                if (Number(data)) {
-                    state.deleteSelectFood[restaurant_id][data] = false
-                    state.selectFood[restaurant_id][data] = true
-                    state.selectFood[restaurant_id].totalPrice += Number(restaurant[data].price) * Number(restaurant[data].num)
+        onMounted(() => {
+            state.emptyCart = !Object.keys(cartList.value).length
+            Object.keys(cartList.value).forEach(restaurant_id => { // 初始化选中列表
+                state.selectFood[restaurant_id] = {
+                    allSelect: true,
+                    totalPrice: 0
                 }
+                state.deleteSelectFood[restaurant_id] = {
+                    allSelect: false
+                }
+                let restaurant = cartList.value[restaurant_id]
+                Object.keys(restaurant).forEach(data => {
+                    if (Number(data)) {
+                        state.deleteSelectFood[restaurant_id][data] = false
+                        state.selectFood[restaurant_id][data] = true
+                        state.selectFood[restaurant_id].totalPrice += Number(restaurant[data].price) * Number(restaurant[data].num)
+                    }
+                })
             })
         })
+
         return {
             ...toRefs(state),
             cartList

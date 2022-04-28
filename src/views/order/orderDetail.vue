@@ -105,7 +105,7 @@
 <script lang="ts" setup>
 import { orderInfo } from '@/api/order'
 import { Snackbar } from '@varlet/ui'
-import { reactive } from 'vue'
+import { reactive, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 const state = reactive({
@@ -118,24 +118,26 @@ const state = reactive({
     },
     address: {}, // 地址信息
 })
-const route = useRoute()
-let id = route.query.id
-orderInfo({ order_id: id }).then((res) => {
-    if (res.status === -1) {
-        Snackbar.error('获取订单失败')
-        return
-    }
-    state.orderData = res.data
-    if (res.data.code === 200) {
-        state.orderStatus = '订单已完成'
-        state.statusDesc = '感谢您对美团外卖的支持，欢迎再次光临'
-    } else {
-        state.orderStatus = '订单已取消'
-        state.statusDesc = '支付超时，订单已取消'
-    }
-    state.restaurantInfo = res.data.restaurant
-    state.foods = res.data.foods
-    state.address = res.data.address
+onMounted(() => {
+    const route = useRoute()
+    let id = route.query.id
+    orderInfo({ order_id: id }).then((res) => {
+        if (res.status === -1) {
+            Snackbar.error('获取订单失败')
+            return
+        }
+        state.orderData = res.data
+        if (res.data.code === 200) {
+            state.orderStatus = '订单已完成'
+            state.statusDesc = '感谢您对美团外卖的支持，欢迎再次光临'
+        } else {
+            state.orderStatus = '订单已取消'
+            state.statusDesc = '支付超时，订单已取消'
+        }
+        state.restaurantInfo = res.data.restaurant
+        state.foods = res.data.foods
+        state.address = res.data.address
+    })
 })
 </script>
 
