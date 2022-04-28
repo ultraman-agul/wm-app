@@ -1,15 +1,15 @@
 <template>
     <v-head title="我的收货地址" :add="true">
-        <template v-slot:add>
-            <span @click="addAddress" class="add">新增地址</span>
+        <template #add>
+            <span class="add" @click="addAddress">新增地址</span>
         </template>
     </v-head>
     <div id="myAddress">
         <ul>
             <li v-for="item in state.addressList" :key="item.id" @click="pickAddress(item)">
                 <div class="left">
-                    <h3>{{item.address + ' ' + item.house_number}}</h3>
-                    <p>{{`${item.name}  ${item.gender === 1 ? '先生' : '女生'}     ${item.phone}`}}</p>
+                    <h3>{{ item.address + ' ' + item.house_number }}</h3>
+                    <p>{{ `${item.name}  ${item.gender === 1 ? '先生' : '女生'}     ${item.phone}` }}</p>
                 </div>
                 <div class="right">
                     <var-icon name="cog-outline" />
@@ -22,20 +22,22 @@
 <script lang="ts" setup>
 import { getAllAddress } from '@/api/address'
 import { reactive } from 'vue'
-import { useAddressStore } from '@/store/address';
-import router from '@/router';
+import { useAddressStore } from '@/store/address'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 const state = reactive({
     addressList: []
 })
 const store = useAddressStore()
 getAllAddress().then(data => {
-    if(data.status === 200){
+    if (data.status === 200) {
         state.addressList = data.address
     }
 }).catch(e => { console.log(e) })
 
-function pickAddress(item){
+function pickAddress(item) {
     console.log(item)
     store.setAddAddress(item)
     router.go(-1)

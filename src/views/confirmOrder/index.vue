@@ -100,8 +100,9 @@ import { ref, reactive, computed } from 'vue'
 import { useAddressStore } from '@/store/address'
 import { useCartStore } from '@/store/cart'
 import { Snackbar } from '@varlet/ui'
-import router from '@/router'
+import { useRouter } from 'vue-router'
 
+const router = useRouter()
 const emptyAddress = ref(false)
 const comfirmOrder = JSON.parse(localStorage.getItem('comfirmOrder')) // 获取localstorage中的订单信息
 console.log(comfirmOrder)

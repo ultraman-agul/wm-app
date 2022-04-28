@@ -55,11 +55,11 @@
 import { orderInfo, makeComment } from '@/api/order'
 import { uploadCommentPic } from '@/api/upload'
 import { reactive, toRefs } from 'vue'
-import router from '@/router'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import config from '@/config'
 import { Snackbar } from '@varlet/ui'
 
+const router = useRouter()
 const route = useRoute()
 const state = reactive({
     restaurant_info: {}, // 商店信息

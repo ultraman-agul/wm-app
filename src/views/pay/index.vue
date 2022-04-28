@@ -19,13 +19,13 @@
 
 <script lang="ts">
 import { pay } from '@/api/order'
-import { useRoute } from 'vue-router'
+import { useRoute, useRouter } from 'vue-router'
 import { ref, defineComponent, reactive, toRefs } from 'vue'
 import { Snackbar } from '@varlet/ui'
-import router from '@/router'
 
 export default defineComponent({
     setup() {
+        const router = useRouter()
         const route = useRoute()
         const state = reactive({
             time: ref(15 * 60 * 1000),
