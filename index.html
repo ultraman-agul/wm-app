@@ -5,24 +5,31 @@
         <link rel="icon" href="/favicon.ico" />
 
         <meta name="viewport" content="user-scalable=no, initial-scale=1,width=device-width,viewport-fit=cover" />
-        <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" />
+        <!-- <meta http-equiv="X-UA-Compatible" content="IE=EmulateIE11" />
         <meta http-equiv="Expires" content="0" />
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Cache-control" content="no-cache" />
-        <meta http-equiv="Cache" content="no-cache" />
+        <meta http-equiv="Cache" content="no-cache" /> -->
         <title>Vite App</title>
     </head>
 
     <body style="font-size: 1rem !important;">
         <div id="app"></div>
         <script type="module" src="/src/main.ts"></script>
-        <script type="application/javascript">
+        <!-- <script type="application/javascript">
             function getIP(json) {
               sessionStorage.setItem('ip', json.ip)
               console.log('当前你的ip地址是：',sessionStorage.getItem('ip'))
             }
-        </script>
+        </script> -->
         <!-- 页面加载时获取到当前用户的ip地址,使用jsonp解决第三方接口跨域问题,-->
-        <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script>
+        <!-- <script type="application/javascript" src="https://api.ipify.org?format=jsonp&callback=getIP"></script> -->
+        <script src="//pv.sohu.com/cityjson?ie=utf-8"></script>
+
+        <script type="text/javascript">
+            // document.write('<b>'+'您的IP:'+returnCitySN["cip"]+' 您的位置:'+returnCitySN["cname"]+'</b>')
+            sessionStorage.setItem('ip', returnCitySN["cip"])
+            console.log('当前你的ip地址是：',sessionStorage.getItem('ip'))
+        </script>
     </body>
 </html>
