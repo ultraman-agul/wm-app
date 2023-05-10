@@ -25,9 +25,9 @@
 
                 <!--附近商家-->
                 <div class="head">
-                    <span class="line"></span>
+                    <!-- <span class="line"></span> -->
                     <h3>附近商家</h3>
-                    <span class="line"></span>
+                    <!-- <span class="line"></span> -->
                 </div>
                 <nearby-shops></nearby-shops>
             </div>
